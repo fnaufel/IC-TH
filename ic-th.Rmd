@@ -49,7 +49,7 @@ source(
   )
 )
 
-gabarito <- TRUE
+gabarito <- FALSE
 ```
 
 
@@ -96,7 +96,7 @@ gabarito <- TRUE
 
 * Cada item que pede para você construir um intervalo de confiança ou para você fazer um teste de hipóteses [deve ser resolvido de duas maneiras]{.hl} (exceto quando houver instrução dizendo o contrário):
 
-  1. Fazendo os cálculos passo a passo e
+  1. Fazendo os cálculos passo a passo, como nos vídeos do curso, e
   
   1. Usando as funções prontas do R para IC e testes de hipótese que foram usadas nos vídeos do curso.
 
@@ -123,26 +123,20 @@ gabarito <- TRUE
       
       ```
    
-   a. Faça um teste de hipóteses para avaliar a afirmação de que o percentual de fumantes na população é de $50\%$ (em oposição a diferente de $50\%$). Use $\alpha = 0{,}05$.
+   a. Faça um teste de hipóteses para avaliar a afirmação de que o percentual de fumantes na população é [diferente de $50\%$]{.hl}. Use $\alpha = 0{,}05$.
    
       ```{r child='fumantes2.Rmd', eval=gabarito}
       
       ```
 
-1. Outra amostra aleatória, de $30$ pessoas, tem $30$ fumantes. 
 
-   a. Construa um intervalo de confiança de $95\%$ para o percentual de fumantes na população de onde foi coletada a amostra. Comente o resultado.
-
-   a. Uma maneira de evitar este problema é [adicionar $4$ elementos artificiais à amostra: $2$ fumantes e $2$ não-fumantes.]{.hl}^[Se estiver interessado, leia [este artigo](https://scholar.google.com/scholar?q=Approximate%20Is%20Better%20than%20%E2%80%9CExact%E2%80%9D%20for%20Interval%20Estimation%20of%20Binomial%20Proportions).] Refaça o item anterior com esta nova amostra.
-  
-   
 # Graduação em $4$ anos
 
 1. Qual o tamanho mínimo da amostra necessária para estimar, com um nível de confiança de $95\%$ e uma margem de erro de $0{,}05$ ($5$ pontos percentuais), a proporção de alunos universitários que completam a graduação em $4$ anos ou menos? Nada mais é sabido sobre a população. 
 
    [Explique por que você escolheu o valor de $\hat p$ que você escolheu.]{.hl}
 
-1. Em uma amostra de $400$ alunos universitários, $150$ completaram a graduação em $4$ anos ou menos. Teste a afirmação de que, na população, $40\%$ dos alunos universitários completam a graduação neste tempo.
+1. Em uma amostra de $400$ alunos universitários, $150$ completaram a graduação em $4$ anos ou menos. Teste a afirmação de que, na população, [menos de $40\%$]{.hl} dos alunos universitários completam a graduação neste tempo.
 
 
 # Estimativa do tamanho de uma multidão { #multidao }
@@ -167,7 +161,7 @@ setores <- c(
 
 1. Usando o resultado do item anterior e considerando que a multidão [inteira]{.hl} cobre $50$ setores, construa um intervalo de confiança para o total de pessoas na multidão.
 
-1. Faça um teste de hipóteses para avaliar a afirmação de que a multidão [inteira]{.hl} consiste de [$35$ mil pessoas ou mais]{.hl}. Use $\alpha = 0{,}05$.
+1. Faça um teste de hipóteses para avaliar a afirmação de que a multidão [inteira]{.hl} consiste de [mais de $35$ mil pessoas]{.hl}. Use $\alpha = 0{,}05$.
 
 
 # Pulsação média de mulheres
@@ -190,7 +184,7 @@ setores <- c(
     )
     ```
 
-1. Teste a afirmação de que a pulsação média de mulheres adultas é menor do que $70$ bpm. Use $\alpha = 0{,}05$. Use o fato de que $\sigma = 12{,}54$ bpm.
+1. Teste a afirmação de que a pulsação média de mulheres adultas é [menor do que $70$ bpm]{.hl}. Use $\alpha = 0{,}05$. Use o fato de que $\sigma = 12{,}54$ bpm.
 
 1. Refaça o item anterior [sem usar o fato de que $\sigma = 12{,}54$ bpm.]{.hl}
 
