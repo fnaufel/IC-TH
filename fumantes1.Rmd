@@ -1,0 +1,74 @@
+      ::: {.rmdbox latex=1}
+      
+      ### Condições {-}
+      
+      * A distribuição da população é normal e $n \geq 10$?
+      
+        Não sabemos se a distribuição da população é normal.
+        
+      * Caso a distribuição da população não seja conhecida, $n \geq 30$?
+      
+        Sim.
+        
+      * A amostra é aleatória, representativa da população?
+      
+        Supomos que sim.
+        
+      * Os valores da amostra são independentes entre si?
+      
+        Supomos que sim.
+        
+      * O tamanho da amostra é menos do que $10\%$ da população?
+      
+        Sim.
+        
+      * Há pelo menos 10 fracassos e pelo menos 10 sucessos na amostra?
+
+        Sim.
+        
+      :::
+
+      ::: {.rmdbox latex=1}
+   
+      ### Passo a passo {-}
+      
+      ```{r}
+      n <- 86
+      sucessos <- 41
+      nivel_confianca <- .95
+      
+      pchapeu <- sucessos / n
+      cat('pchapeu =', pchapeu)
+      
+      erro_padrao <- sqrt(pchapeu * (1 - pchapeu) / n)
+      cat('\nEP =', erro_padrao)
+      
+      valor_critico <- -qnorm((1 - nivel_confianca)/2)
+      cat('\nValor crítico =', valor_critico)
+      
+      margem_erro <- erro_padrao * valor_critico
+      cat('\nME =', margem_erro)
+      
+      intervalo <- pchapeu + c(-1, 1) * margem_erro
+      cat('\nIC = [', intervalo[1], ';', intervalo[2], ']')
+      ```
+      
+      :::
+      
+      ::: {.rmdbox latex=1}
+      
+      ### Usando a função `binom.confint()` {-}
+      
+       ```{r}
+       library(binom)
+       n <- 86
+       sucessos <- 41
+       binom.confint(
+         sucessos,
+         n,
+         method = 'asymptotic'
+       )
+       ```
+      
+      :::
+   

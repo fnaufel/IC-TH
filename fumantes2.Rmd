@@ -1,0 +1,106 @@
+      ::: {.rmdbox latex=1}
+      
+      ### Condições {-}
+      
+      Já foram verificadas no item anterior.
+      
+      :::
+
+      ::: {.rmdbox latex=1}
+      
+      ### Hipóteses {-}
+      
+      $$
+      H_0 : p = 0{,}5
+      $$
+      
+      $$
+      H_A : p \neq 0{,}5
+      $$
+      
+      :::
+
+      ::: {.rmdbox latex=1}
+   
+      ### Passo a passo {-}
+      
+      ```{r}
+      n <- 86
+      sucessos <- 41
+
+      # Valor de p na hipótese nula
+      pzero <- .5
+      
+      # Supondo a hipótese nula
+      erro_padrao <- sqrt(pzero * (1 - pzero) / n)
+      cat('\nEP =', erro_padrao)
+      
+      pchapeu <- sucessos / n
+      cat('pchapeu =', pchapeu)
+      
+      # Valor p
+      valor_p <- 2 * pnorm(
+        pchapeu, 
+        mean = pzero, 
+        sd = erro_padrao
+      )
+      cat('Valor p =', valor_p)
+      ```
+      
+      Graficamente, o valor $p$ corresponde à área em vermelho:
+      
+      ```{r echo=FALSE}
+      p_min <- 0
+      p_max <- 1
+      p_cauda_direita <- pzero + (pzero - pchapeu)
+      
+      brks <- c(p_min, pzero, pchapeu, p_cauda_direita, p_max)
+      
+      ggplot() +
+        stat_function(
+          fun = dnorm,
+          args = c(pzero, erro_padrao),
+          xlim = c(p_min, p_max)
+        ) +
+        stat_function(
+          fun = dnorm,
+          args = c(pzero, erro_padrao),
+          xlim = c(p_min, pchapeu),
+          fill = 'red',
+          alpha = .5,
+          geom = 'area'
+        ) +
+        stat_function(
+          fun = dnorm,
+          args = c(pzero, erro_padrao),
+          xlim = c(p_cauda_direita, p_max),
+          fill = 'red',
+          alpha = .5,
+          geom = 'area'
+        ) +
+        scale_x_continuous(
+          breaks = brks %>% round(3)
+        ) +
+        labs(
+          title = TeX('Distribuição amostral de $\\hat{p}$, supondo $H_0$'),
+          y = NULL
+        ) +
+        theme(axis.text.x = element_text(angle = 90))
+      ```
+      
+      Como o valor $p$ é muito maior do que $\alpha$, [não temos evidência para rejeitar $H_0$]{.hl}.
+      :::
+      
+      ::: {.rmdbox latex=1}
+      
+      ### Usando a função `prop.test()` {-}
+      
+      ```{r}
+      n <- 86
+      sucessos <- 41
+      
+      prop.test(sucessos, n, p = .5, correct = FALSE)
+      ```
+      
+      :::
+   

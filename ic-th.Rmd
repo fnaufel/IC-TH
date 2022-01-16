@@ -1,0 +1,375 @@
+---
+title: 'Lista avaliativa: IC e TH'
+subtitle: 'Probabilidade e Estatística -- 2021.2'
+author: 'fnaufel'
+email: 'https://fnaufel.github.io/'
+date: '14/01/2022 (v. `r format(Sys.Date(), "%d/%m/%Y")`)'
+lang: 'pt-br'
+output: 
+  # To install these output formats, enter
+  #   install.packages("devtools")
+  #   devtools::install_github("fnaufel/fnaufelRmd")
+  fnaufelRmd::html_report:
+    []
+  fnaufelRmd::pdf_report:
+    documentclass: article
+    papersize: a4
+    fontsize: 12pt
+    links-as-notes: true
+    geometry:
+    - top=30mm
+    - left=20mm
+    # For more pdf options, see
+    # https://pandoc.org/MANUAL.html#variables-for-latex
+---
+
+```{r setup, include=FALSE}
+# The next command configures MANY things and loads quite a few packages.
+# 
+# If you want to see what's being done, execute 
+# 
+#   cat(
+#     system.file(
+#       "rmarkdown/resources/R/_common_report.R", 
+#       package = "fnaufelRmd"
+#     )
+#   )
+# 
+# to find out the location of the file. Then open the file.
+# 
+# If you want to change the configuration, copy the file, edit it, and
+# source it instead of the package file. 
+# 
+# Or simply write your commands here in this code chunk.
+
+source(
+  system.file(
+    "rmarkdown/resources/R/_common_report.R",
+    package = "fnaufelRmd"
+  )
+)
+
+gabarito <- TRUE
+```
+
+
+# Instruções {-}
+
+* Veja na tabela abaixo o número da questão que foi sorteada para você. [Se seu número de matrícula não estiver na tabela, entre em contato comigo pelo Telegram.]{.hl}
+
+    ```{r echo=FALSE}
+    tibble::tribble(
+       ~matricula, ~questao,
+      "119060007",       1L,
+      "119060025",       3L,
+      "119060038",       8L,
+      "119060043",       9L,
+      "120060010",       4L,
+      "120060014",       6L,
+      "120060029",       7L,
+      "120060034",      10L,
+      "216060055",       5L,
+      "219060053",       2L
+      ) %>% 
+      kbl(
+        digits = 9, 
+        align = 'r', 
+        format.args = list(big.mark = '.')
+      ) %>% 
+      kable_paper(
+        c('striped', 'hover'),
+        full_width = FALSE
+      )
+    ```
+
+
+* Clique o botão `Code`, no início desta página, para baixar o arquivo Rmd deste documento.
+
+* Certifique-se de que o pacote `fnaufelRmd` está instalado. Use os comandos
+
+    ```{r eval=FALSE}
+    install.packages("devtools")
+    devtools::install_github("fnaufel/fnaufelRmd")
+    ```
+  
+* Edite o arquivo Rmd para resolver a sua questão. 
+
+* Cada item que pede para você construir um intervalo de confiança ou para você fazer um teste de hipóteses [deve ser resolvido de duas maneiras]{.hl} (exceto quando houver instrução dizendo o contrário):
+
+  1. Fazendo os cálculos passo a passo e
+  
+  1. Usando as funções prontas do R para IC e testes de hipótese que foram usadas nos vídeos do curso.
+
+* Escreva o máximo possível sobre o seu raciocínio. Justifique suas respostas.
+
+* Teste suas respostas. Tudo deve estar executando sem erros.
+
+* [Envie no Moodle: ]{.hl}
+
+  1. O arquivo Rmd com as suas resoluções e
+  
+  1. Um vídeo de até $5$ minutos explicando as suas resoluções.
+
+* Bom trabalho.
+
+
+# Fumantes
+
+1. Uma amostra aleatória de $86$ pessoas inclui $41$ fumantes.
+
+   a. Construa um intervalo de confiança de $95\%$ para o percentual de fumantes na população de onde foi coletada a amostra. 
+   
+      ```{r child='fumantes1.Rmd', eval=gabarito}
+      
+      ```
+   
+   a. Faça um teste de hipóteses para avaliar a afirmação de que o percentual de fumantes na população é de $50\%$ (em oposição a diferente de $50\%$). Use $\alpha = 0{,}05$.
+   
+      ```{r child='fumantes2.Rmd', eval=gabarito}
+      
+      ```
+
+1. Outra amostra aleatória, de $30$ pessoas, tem $30$ fumantes. 
+
+   a. Construa um intervalo de confiança de $95\%$ para o percentual de fumantes na população de onde foi coletada a amostra. Comente o resultado.
+
+   a. Uma maneira de evitar este problema é [adicionar $4$ elementos artificiais à amostra: $2$ fumantes e $2$ não-fumantes.]{.hl}^[Se estiver interessado, leia [este artigo](https://scholar.google.com/scholar?q=Approximate%20Is%20Better%20than%20%E2%80%9CExact%E2%80%9D%20for%20Interval%20Estimation%20of%20Binomial%20Proportions).] Refaça o item anterior com esta nova amostra.
+  
+   
+# Graduação em $4$ anos
+
+1. Qual o tamanho mínimo da amostra necessária para estimar, com um nível de confiança de $95\%$ e uma margem de erro de $0{,}05$ ($5$ pontos percentuais), a proporção de alunos universitários que completam a graduação em $4$ anos ou menos? Nada mais é sabido sobre a população. 
+
+   [Explique por que você escolheu o valor de $\hat p$ que você escolheu.]{.hl}
+
+1. Em uma amostra de $400$ alunos universitários, $150$ completaram a graduação em $4$ anos ou menos. Teste a afirmação de que, na população, $40\%$ dos alunos universitários completam a graduação neste tempo.
+
+
+# Estimativa do tamanho de uma multidão { #multidao }
+
+Observe a foto abaixo,^[[Link para a fonte.](https://web.archive.org/web/20101008192855/http://www.lifeslittlemysteries.com/how-is-crowd-size-estimated--1074/)] que mostra [parte]{.hl} de uma multidão. A quantidade de pessoas em cada setor quadrado foi estimada por um algoritmo.
+
+```{r echo=FALSE, out.width='80%'}
+knitr::include_graphics('crowd-counting-02.jpg')
+```
+
+Os valores obtidos para os setores da foto foram
+
+```{r}
+setores <- c(
+  200, 400, 800, 1000, 400, 800, 700, 1000, 400, 200, 700, 900, 400, 400, 700, 900,  
+  600, 700, 900, 650, 672, 700, 900, 450, 566, 700, 900
+)
+```
+
+
+1. Construa um intervalo de confiança de $95\%$ para a quantidade média de pessoas por setor na multidão [inteira]{.hl} (inclusive as partes que não aparecem na foto).
+
+1. Usando o resultado do item anterior e considerando que a multidão [inteira]{.hl} cobre $50$ setores, construa um intervalo de confiança para o total de pessoas na multidão.
+
+1. Faça um teste de hipóteses para avaliar a afirmação de que a multidão [inteira]{.hl} consiste de [$35$ mil pessoas ou mais]{.hl}. Use $\alpha = 0{,}05$.
+
+
+# Pulsação média de mulheres
+
+1. Qual o tamanho mínimo da amostra necessária para estimar, com um nível de confiança de $95\%$ e uma margem de erro de $2$ batimentos por minuto (bpm), a pulsação média de mulheres adultas? De estudos anteriores, podemos usar a informação de que o desvio padrão da população é $\sigma = 12{,}54$ bpm. 
+
+1. O vetor `pulsacao` contém os valores das pulsações (em bpm) de diversas mulheres. 
+
+    ```{r}
+    pulsacao <- c(
+      80, 94, 58, 66, 56, 82, 78, 86, 88, 56, 36, 66, 84, 76, 78, 64, 66, 
+      78, 60, 64, 84, 82, 70, 74, 86, 90, 88, 90, 90, 94, 68, 90, 82, 80, 74, 
+      56, 100, 74, 76, 76, 86, 74, 66, 62, 78, 68, 62, 62, 74, 104, 54, 74, 
+      74, 84, 60, 52, 84, 66, 56, 66, 84, 64, 64, 78, 104, 84, 84, 62, 82, 64, 
+      78, 76, 86, 72, 82, 82, 66, 58, 62, 80, 58, 82, 76, 70, 88, 44, 58, 64, 
+      68, 70, 58, 72, 80, 70, 74, 72, 66, 82, 98, 74, 80, 82, 56, 78, 100, 56, 
+      68, 72, 64, 94, 72, 56, 80, 76, 56, 56, 54, 72, 70, 80, 72, 62, 96, 72, 
+      60, 98, 72, 80, 84, 68, 86, 72, 80, 64, 82, 80, 62, 74, 96, 72, 96, 64, 
+      62, 82, 76, 94, 74
+    )
+    ```
+
+1. Teste a afirmação de que a pulsação média de mulheres adultas é menor do que $70$ bpm. Use $\alpha = 0{,}05$. Use o fato de que $\sigma = 12{,}54$ bpm.
+
+1. Refaça o item anterior [sem usar o fato de que $\sigma = 12{,}54$ bpm.]{.hl}
+
+1. Compare e comente os resultados.
+
+
+# Para quem gosta de programar: *bootstrapping* (1)
+
+Em uma amostra $A$ de $200$ pessoas, $124$ possuem um PlayStation.
+
+O método de *bootstrapping* consiste em simular muitas amostras --- [com reposição]{.hl} --- a partir dos elementos desta amostra original $A$. A partir destas muitas amostras simuladas, você pode calcular intervalos de confiança como explicado abaixo:
+
+1. Armazene, em uma lista, $10$ mil amostras, cada uma com $200$ pessoas sorteadas [com reposição]{.hl} a partir da amostra original $A$ acima (com todas as $200$ pessoas tendo a mesma probabilidade de sorteio).
+
+1. Armazene, em um vetor de $10$ mil elementos, as proporções de possuidores de PlayStations nas amostras obtidas no item anterior.
+
+1. Imprima os valores deste vetor que estão no quantil $0{,}05$ e no quantil $0{,}95$. Estes são os extremos do intervalo de confiança para a proporção de possuidores de PlayStations na população, com $95\%$ de confiança, calculados via *bootstrapping*.
+
+   [Uma das vantagens do *bootstrapping* é não precisar de qualquer conhecimento sobre a população --- sua distribuição, sua variância etc.]{.hl}
+
+1. Use a função `prop.test()` do R para construir um intervalo de confiança para a proporção de possuidores de PlayStations na população, com $95\%$ de confiança --- [não é necessário fazer os cálculos passo a passo.]{.hl} 
+
+1. Compare com o resultado do *bootstrapping*.
+
+
+# Para quem gosta de programar: *bootstrapping* (2)
+
+Uma amostra das quantidades de radiação emitidas por telefones celulares consiste dos seguintes valores:
+
+```{r}
+radiacao <- c(38, 55, 86, 91, 99, 103, 145)
+```
+
+O método de *bootstrapping* consiste em simular muitas amostras --- [com reposição]{.hl} --- a partir dos elementos desta amostra original. A partir destas muitas amostras simuladas, você pode calcular intervalos de confiança como explicado abaixo:
+
+1. Armazene, em uma lista, $10$ mil amostras, cada uma com $`r length(radiacao)`$ elementos sorteados [com reposição]{.hl} a partir do vetor `radiacao` (com todos os elementos tendo a mesma probabilidade de sorteio).
+
+1. Armazene, em um vetor de $10$ mil elementos, as médias das amostras obtidas no item anterior.
+
+1. Imprima os valores deste vetor que estão no quantil $0{,}05$ e no quantil $0{,}95$. Estes são os extremos do intervalo de confiança para a radiação média na população, com $95\%$ de confiança, calculados via *bootstrapping*.
+
+   [Uma das vantagens do *bootstrapping* é não precisar de qualquer conhecimento sobre a população --- sua distribuição, sua variância etc.]{.hl}
+
+1. Use a função `t.test()` do R para construir um intervalo de confiança para a radiação média, com $95\%$ de confiança --- [não é necessário fazer os cálculos passo a passo.]{.hl} 
+
+1. Compare com o resultado do *bootstrapping*.
+
+
+# Sonhando em cores ou em preto e branco
+
+Dentre $306$ pessoas [com mais de $55$ anos]{.hl}, $68$ disseram que sonham em preto e branco.
+
+Dentre $298$ pessoas [com menos de $25$ anos]{.hl}, $13$ disseram que sonham em preto e branco.
+
+1. Construa um intervalo de confiança de $99\%$ para a diferença entre as duas proporções.
+
+1. Teste a afirmação de que a proporção de pessoas [com mais de $55$ anos]{.hl} que sonham em preto e branco é [maior do que]{.hl} a proporção de pessoas [com menos de $25$ anos]{.hl} que sonham em preto e branco. Use $\alpha = 0{,}01$.
+
+
+# Professores $\times$ professoras
+
+Professoras mulheres recebem avaliações melhores do que professores homens?
+
+Em uma universidade, as professoras mulheres receberam as seguintes notas dos alunos:
+
+```{r}
+mulheres <- c(
+ 4.3, 4.3, 4.4, 4.0, 3.4, 4.7, 2.9, 4.0, 4.3, 3.4, 3.4, 3.3
+)
+```
+
+Na mesma universidade, os professores homens receberam as seguintes notas:
+
+```{r}
+homens <- c(
+ 4.5, 3.7, 4.2, 3.9, 3.1, 4.0, 3.8, 3.4, 4.5, 3.8, 4.3, 4.4, 4.1, 4.2, 4.0
+)
+```
+
+Nada é sabido sobre as variâncias das duas populações.
+
+1. Construa um intervalo de confiança de $95\%$ para a diferença entre as médias.
+
+1. Teste a afirmação de que as médias são diferentes. Use $\alpha = 0{,}05$.
+
+
+# Mulheres $\times$ maridos
+
+A tabela abaixo mostra as quantidades de palavras faladas em um dia pelos maridos e mulheres em $8$ casais:
+
+```{r echo=FALSE}
+df <- tibble(
+  casal = 1:8,
+  marido = c(
+    15684,
+    26429,
+     1411,
+     7771,
+    18876,
+    15477,
+    14069,
+    25835
+  ),
+  mulher = c(
+    24625,
+    13397,
+    18338,
+    17791,
+    12964,
+    16937,
+    16255,
+    18667
+  )
+)
+
+df %>% kbl(
+  digits = 9, 
+  align = 'r', 
+  format.args = list(big.mark = '.')
+) %>% 
+kable_paper(
+  c('striped', 'hover'),
+  full_width = FALSE
+)
+```
+
+1. Construa um intervalo de confiança de $95\%$ para a diferença média entre as quantidades de palavras faladas pelos dois cônjuges de um casal.
+
+1. Teste a afirmação de que, em casais em geral, a mulher fala mais do que o homem. Use $\alpha = 0{,}05$.
+
+
+# Para quem gosta de programar: *bootstrapping* (3)
+
+A tabela abaixo mostra as temperatura corporais (em graus Celsius) de $32$ pessoas, medidas de manhã e de tarde:
+
+```{r echo=FALSE}
+df <- tibble(
+  pessoa = 1:32,
+  manhã = c(
+    36.7, 37, 36.3, 36.8, 36.8, 36.8, 35.9, 36.3, 36.3, 36.8, 36.3, 36.6,
+    36.9, 36.4, 35.7, 36.7, 37.1, 37.4, 37.1, 36.5, 37.2, 36.7, 37.1, 36.4,
+    37.2, 36.9, 36.2, 37.1, 36.3, 37.1, 37.2, 37.3
+  ),
+  tarde = c(
+    36.7, 37.1, 36.7, 37.1, 37.1, 36.4, 37, 37, 37.1, 36.7, 36.8, 36.7,
+    36.7, 36.1, 36.2, 36.8, 37.1, 37.4, 36.6, 36.9, 36.5, 36.8, 36.5, 36.2,
+    36.9, 37, 36.3, 35.9, 36.1, 36.9, 36.8, 37
+  )
+)
+
+df %>% kbl(
+  digits = 9, 
+  align = 'r', 
+  format.args = list(big.mark = '.')
+) %>% 
+kable_paper(
+  c('striped', 'hover'),
+  full_width = FALSE
+)
+```
+
+O método de *bootstrapping* consiste em simular muitas amostras --- [com reposição]{.hl} --- a partir dos elementos desta amostra original. A partir destas muitas amostras simuladas, você pode calcular intervalos de confiança como explicado abaixo:
+
+1. Calcule a diferença entre a temperatura matinal e a temperatura vespertina para cada pessoa, armazenando os resultados em um vetor `diferencas`, com $32$ valores.
+
+1. Armazene, em uma lista, $10$ mil amostras, cada uma com $32$ elementos sorteados [com reposição]{.hl} a partir do vetor `diferencas` (com todos os elementos tendo a mesma probabilidade de sorteio).
+
+1. Armazene, em um vetor de $10$ mil elementos, as médias das amostras obtidas no item anterior.
+
+1. Imprima os valores deste vetor que estão no quantil $0{,}05$ e no quantil $0{,}95$. Estes são os extremos do intervalo de confiança para a diferença média de temperatura na população, com $95\%$ de confiança, calculados via *bootstrapping*.
+
+   [Uma das vantagens do *bootstrapping* é não precisar de qualquer conhecimento sobre a população --- sua distribuição, sua variância etc.]{.hl}
+
+1. Use a função `t.test()` do R para construir um intervalo de confiança para a diferença média de temperatura na população, com $95\%$ de confiança --- [não é necessário fazer os cálculos passo a passo.]{.hl} 
+
+1. Compare com o resultado do *bootstrapping*.
+
+
+<div style='height: 50px'></div>
+
+# Notas {-}
+
