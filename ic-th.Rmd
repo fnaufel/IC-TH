@@ -3,7 +3,7 @@ title: 'Lista avaliativa: IC e TH'
 subtitle: 'Probabilidade e Estatística -- 2021.2'
 author: 'fnaufel'
 email: 'https://fnaufel.github.io/'
-date: '14/01/2022 (v. `r format(Sys.Date(), "%d/%m/%Y")`)'
+date: '17/01/2022 (v. `r format(Sys.Date(), "%d/%m/%Y")`)'
 lang: 'pt-br'
 output: 
   # To install these output formats, enter
@@ -139,9 +139,9 @@ gabarito <- FALSE
 1. Em uma amostra de $400$ alunos universitários, $150$ completaram a graduação em $4$ anos ou menos. Teste a afirmação de que, na população, [menos de $40\%$]{.hl} dos alunos universitários completam a graduação neste tempo.
 
 
-# Estimativa do tamanho de uma multidão { #multidao }
+# Estimativa do tamanho de uma multidão^[Baseado em https://web.archive.org/web/20101008192855/http://www.lifeslittlemysteries.com/how-is-crowd-size-estimated--1074/] { #multidao }
 
-Observe a foto abaixo,^[[Link para a fonte.](https://web.archive.org/web/20101008192855/http://www.lifeslittlemysteries.com/how-is-crowd-size-estimated--1074/)] que mostra [parte]{.hl} de uma multidão. A quantidade de pessoas em cada setor quadrado foi estimada por um algoritmo.
+Observe a foto abaixo, que mostra [parte]{.hl} de uma multidão. A quantidade de pessoas em cada setor quadrado foi estimada por um algoritmo.
 
 ```{r echo=FALSE, out.width='80%'}
 knitr::include_graphics('crowd-counting-02.jpg')
@@ -191,7 +191,7 @@ setores <- c(
 1. Compare e comente os resultados.
 
 
-# Para quem gosta de programar: *bootstrapping* (1)
+# PlayStations com *bootstrapping*
 
 Em uma amostra $A$ de $200$ pessoas, $124$ possuem um PlayStation.
 
@@ -210,7 +210,7 @@ O método de *bootstrapping* consiste em simular muitas amostras --- [com reposi
 1. Compare com o resultado do *bootstrapping*.
 
 
-# Para quem gosta de programar: *bootstrapping* (2)
+# Telefones celulares com *bootstrapping*
 
 Uma amostra das quantidades de radiação emitidas por telefones celulares consiste dos seguintes valores:
 
@@ -233,7 +233,7 @@ O método de *bootstrapping* consiste em simular muitas amostras --- [com reposi
 1. Compare com o resultado do *bootstrapping*.
 
 
-# Sonhando em cores ou em preto e branco
+# Sonhando em cores ou em preto e branco^[Baseado em Murzyn, E. (2008). "Do we only dream in colour? a comparison of reported dream colour in younger and older adults with different experiences of black and white media." *Consciousness and Cognition*, 17(4), 1228–1237. http://dx.doi.org/10.1016/j.concog.2008.09.002]
 
 Dentre $306$ pessoas [com mais de $55$ anos]{.hl}, $68$ disseram que sonham em preto e branco.
 
@@ -244,7 +244,8 @@ Dentre $298$ pessoas [com menos de $25$ anos]{.hl}, $13$ disseram que sonham em 
 1. Teste a afirmação de que a proporção de pessoas [com mais de $55$ anos]{.hl} que sonham em preto e branco é [maior do que]{.hl} a proporção de pessoas [com menos de $25$ anos]{.hl} que sonham em preto e branco. Use $\alpha = 0{,}01$.
 
 
-# Professores $\times$ professoras
+# Professores $\times$ professoras^[Baseado em Andrew Gelman e Jennifer Hill, "Replication Data for Data Analysis Using Regression Multilevel Hierarchical Models" (2009), http://hdl.handle.net/1902.1/10285
+]
 
 Professoras mulheres recebem avaliações melhores do que professores homens?
 
@@ -271,7 +272,7 @@ Nada é sabido sobre as variâncias das duas populações.
 1. Teste a afirmação de que as médias são diferentes. Use $\alpha = 0{,}05$.
 
 
-# Mulheres $\times$ maridos
+# Mulheres $\times$ maridos^[Baseado em Mehl, M. R., Vazire, S., Nairán Ramírez-Esparza, Slatcher, R. B., & Pennebaker, J. W. (2007). "Are Women Really More Talkative Than Men?", *Science*, 317(5834), 82. http://dx.doi.org/10.1126/science.1139940]
 
 A tabela abaixo mostra as quantidades de palavras faladas em um dia pelos maridos e mulheres em $8$ casais:
 
@@ -316,7 +317,7 @@ kable_paper(
 1. Teste a afirmação de que, em casais em geral, a mulher fala mais do que o homem. Use $\alpha = 0{,}05$.
 
 
-# Para quem gosta de programar: *bootstrapping* (3)
+# Temperatura corporal com *bootstrapping*
 
 A tabela abaixo mostra as temperatura corporais (em graus Celsius) de $32$ pessoas, medidas de manhã e de tarde:
 
