@@ -1,7 +1,7 @@
 
    ::: {.rmdbox latex=1}
    
-   A população consiste de todas as quantidades de pessoas por setor na multidão.
+   A população consiste de todas as quantidades de pessoas por setor na multidão inteira.
    
    O vetor `setores` é uma amostra.
    
@@ -49,6 +49,9 @@
    ### Passo a passo {-}
    
    ```{r}
+   n = length(setores)
+   cat('n =', n)
+   
    xbarra <- mean(setores)
    cat('Média amostral =', xbarra)
    
@@ -58,7 +61,6 @@
    erro_padrao <- s / sqrt(n)
    cat('\nEP =', erro_padrao)
    
-   n = length(setores)
    gl <- n - 1
    cat('\nGraus de liberdade = ', gl)
    
@@ -80,7 +82,7 @@
    ### Usando a função `t.test()` {-}
    
     ```{r}
-    t.test(setores)
+    t.test(x = setores)
     ```
    
    :::

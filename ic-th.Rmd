@@ -180,7 +180,15 @@ setores <- c(
 
 1. Usando o resultado do item anterior e considerando que a multidão [inteira]{.hl} cobre $50$ setores, construa um intervalo de confiança para o total de pessoas na multidão.
 
+   ```{r child='multidao2.Rmd', eval=gabarito}
+    
+   ```
+
 1. Faça um teste de hipóteses para avaliar a afirmação de que a multidão [inteira]{.hl} consiste de [mais de $35$ mil pessoas]{.hl}. Use $\alpha = 0{,}05$.
+
+   ```{r child='multidao3.Rmd', eval=gabarito}
+    
+   ```
 
 
 # Pulsação média de mulheres

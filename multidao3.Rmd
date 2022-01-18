@@ -1,0 +1,83 @@
+
+   ::: {.rmdbox latex=1}
+   
+   ### Condições {-}
+   
+   Já foram verificadas em um item anterior.
+   
+   :::
+   
+   ::: {.rmdbox latex=1}
+   
+   ### Hipóteses {-}
+   
+   A multidão inteira ter $35$ mil pessoas equivale a
+   
+   $$
+   \mu = \frac{35.000}{50} = `r 35000 / 50`
+   $$
+   
+   onde $\mu$ é a média de pessoas por setor.
+   
+   As hipóteses vão ser:
+   
+   $$
+   H_0 : \mu \leq 700
+   $$
+   
+   $$
+   H_A : \mu > 700
+   $$
+   
+   Antes de fazer qualquer cálculo, percebemos que o valor $700$ está dentro do intervalo de confiança de $95\%$ para a média de pessoas por setor.
+   
+   Isto significa que a hipótese de nulidade [não vai ser rejeitada]{.hl}.
+   
+   :::
+
+   ::: {.rmdbox latex=1}
+
+   ### Passo a passo {-}
+   
+   ```{r}
+   n <- length(setores)
+   xbarra <- mean(setores)
+   s <- sd(setores)
+
+   # Valor de μ na hipótese nula
+   mizero <- 700
+   
+   # Supondo a hipótese nula 
+   erro_padrao <- s / sqrt(n)
+   cat('\nEP =', erro_padrao)
+   
+   # Média amostral padronizada
+   tzero <- (xbarra - mizero) / erro_padrao
+
+   # Graus de liberdade
+   gl <- n - 1
+   
+   # Valor p
+   valor_p <- pt(
+     tzero, 
+     df = gl,
+     lower.tail = FALSE
+   )
+   cat('Valor p =', valor_p)
+   ```
+   
+   Como o valor $p$ $(\approx `r valor_p`)$ é muito maior do que $\alpha$ ($0{,}05$), [não temos evidência para rejeitar $H_0$]{.hl}.
+   
+   :::
+   
+   ::: {.rmdbox latex=1}
+   
+   ### Usando a função `t.test()` {-}
+   
+    ```{r}
+    t.test(x = setores, alternative = 'greater', mu = mizero)
+    ```
+   
+   :::
+ 
+    

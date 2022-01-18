@@ -10,11 +10,6 @@ plot_th <- function(
   tipo = 'ic'
 ) {
   
-  if (identical(distr, dt)) {
-    media_orig <- media
-    media <- 0
-  }
-  
   p_cauda_esq <- media - abs(media - cauda)
   p_cauda_dir <- media + abs(media - cauda)
 
@@ -67,11 +62,6 @@ plot_th <- function(
   if (tipo == 'dir')
     brks <- brks[-2]
   
-  if (identical(distr, dt))
-    rotulos <- brks * erro + media
-  else
-    rotulos <- brks
-  
   ggplot() +
     stat_function(
       fun = distr,
@@ -80,8 +70,7 @@ plot_th <- function(
     ) +
     preencher +
     scale_x_continuous(
-      breaks = brks,
-      labels = rotulos
+      breaks = brks
     ) +
     labs(
       y = NULL

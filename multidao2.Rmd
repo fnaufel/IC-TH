@@ -1,0 +1,11 @@
+
+   ::: {.rmdbox latex=1}
+   
+   Basta multiplicar os valores do intervalo de confiança por $50$:
+   
+    ```{r}
+    intervalo * 50
+    ```
+   
+   :::
+   
