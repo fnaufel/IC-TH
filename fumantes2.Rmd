@@ -47,48 +47,19 @@
       cat('Valor p =', valor_p)
       ```
       
-      Graficamente, o valor $p$ corresponde à área em vermelho:
+      Graficamente, o valor $p$ corresponde à área em vermelho abaixo da seguinte distribuição normal, com média $`r pzero`$ e desvio padrão $\approx `r erro_padrao`$:
       
       ```{r echo=FALSE}
-      p_min <- 0
-      p_max <- 1
-      p_cauda_direita <- pzero + (pzero - pchapeu)
-      
-      brks <- c(p_min, pzero, pchapeu, p_cauda_direita, p_max)
-      
-      ggplot() +
-        stat_function(
-          fun = dnorm,
-          args = c(pzero, erro_padrao),
-          xlim = c(p_min, p_max)
-        ) +
-        stat_function(
-          fun = dnorm,
-          args = c(pzero, erro_padrao),
-          xlim = c(p_min, pchapeu),
-          fill = 'red',
-          alpha = .5,
-          geom = 'area'
-        ) +
-        stat_function(
-          fun = dnorm,
-          args = c(pzero, erro_padrao),
-          xlim = c(p_cauda_direita, p_max),
-          fill = 'red',
-          alpha = .5,
-          geom = 'area'
-        ) +
-        scale_x_continuous(
-          breaks = brks %>% round(3)
-        ) +
-        labs(
-          title = TeX('Distribuição amostral de $\\hat{p}$, supondo $H_0$'),
-          y = NULL
-        ) +
-        theme(axis.text.x = element_text(angle = 90))
+      plot_th(
+        cauda = pchapeu %>% round(3),
+        erro = erro_padrao,
+        tipo = 'bi'
+      )      
       ```
       
-      Como o valor $p$ é muito maior do que $\alpha$, [não temos evidência para rejeitar $H_0$]{.hl}.
+      Note que esta é a distribuição amostral de $\hat p$ [supondo que $H_0$ é verdadeira]{.hl}; sua média é $0{,}5$, diferente da distribuição amostral de $\hat p$ [baseada na amostra que temos]{.hl}, [desenhada acima](#distr-amostral), cuja média era $`r pchapeu`$.
+      
+      Como o valor $p$ $(\approx `r valor_p`)$ é muito maior do que $\alpha$ ($0{,}05$), [não temos evidência para rejeitar $H_0$]{.hl}.
       :::
       
       ::: {.rmdbox latex=1}

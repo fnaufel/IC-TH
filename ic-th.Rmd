@@ -49,7 +49,14 @@ source(
   )
 )
 
+# 3 casas decimais em números no texto
+options(fmdigits = 3)
+
+# Plots de distribuições amostrais
+source('plot_th.R')
+
 gabarito <- FALSE
+gabarito <- TRUE
 ```
 
 
@@ -136,7 +143,15 @@ gabarito <- FALSE
 
    [Explique por que você escolheu o valor de $\hat p$ que você escolheu.]{.hl}
 
+   ```{r child='graduacao1.Rmd', eval=gabarito}
+    
+   ```
+
 1. Em uma amostra de $400$ alunos universitários, $150$ completaram a graduação em $4$ anos ou menos. Teste a afirmação de que, na população, [menos de $40\%$]{.hl} dos alunos universitários completam a graduação neste tempo.
+
+   ```{r child='graduacao2.Rmd', eval=gabarito}
+    
+   ```
 
 
 # Estimativa do tamanho de uma multidão^[Baseado em https://web.archive.org/web/20101008192855/http://www.lifeslittlemysteries.com/how-is-crowd-size-estimated--1074/] { #multidao }
@@ -158,6 +173,10 @@ setores <- c(
 
 
 1. Construa um intervalo de confiança de $95\%$ para a quantidade média de pessoas por setor na multidão [inteira]{.hl} (inclusive as partes que não aparecem na foto).
+
+   ```{r child='multidao1.Rmd', eval=gabarito}
+    
+   ```
 
 1. Usando o resultado do item anterior e considerando que a multidão [inteira]{.hl} cobre $50$ setores, construa um intervalo de confiança para o total de pessoas na multidão.
 

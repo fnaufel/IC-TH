@@ -1,0 +1,28 @@
+
+   ::: {.rmdbox latex=1}
+   
+   Quando construímos um intervalo de confiança, a margem de erro é calculada como
+   
+   $$
+   \text{ME} = z^\star \cdot \sqrt{\frac{\hat p (1 - \hat p)}{n}}
+   $$
+   
+   onde $z^\star = {}$ `-qnorm((1 - .95)/2)` ${} \approx 1{,}96$.
+   
+   Se isolarmos $n$, chegamos a
+   
+   $$
+   n = \hat p (1-\hat p) \left(\frac{z^\star}{\text{ME}}\right)^2
+   $$
+   
+   Não sabemos o valor de $\hat p$. [Vamos pensar no maior $n$ possível, que    corresponde a $\hat p = 0{,}5$.]{.hl} Então,
+   
+   $$
+   n = \hat p (1-\hat p) \left(\frac{z^\star}{\text{ME}}\right)^2
+     = 0{,}5 \cdot 0{,}5 \cdot \left( \frac{1{,}96}{0{,}05} \right)^2
+     \approx `r (.5 * .5 * (1.96 / .05)^2) %>% ceiling()`
+   $$
+   
+   Ou seja, na pior das hipóteses, vamos precisar de uma amostra de $`r (.5 * .5 * (1.96 / .05)^2) %>% ceiling()`$ ou mais pessoas.
+   
+   :::

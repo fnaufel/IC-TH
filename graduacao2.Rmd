@@ -1,0 +1,100 @@
+
+   ::: {.rmdbox latex=1}
+   
+   ### Condições {-}
+   
+   * A distribuição da população é normal e $n \geq 10$?
+   
+     Não sabemos se a distribuição da população é normal.
+     
+   * Caso a distribuição da população não seja conhecida, $n \geq 30$?
+   
+     Sim.
+     
+   * A amostra é aleatória, representativa da população?
+   
+     Supomos que sim.
+     
+   * Os valores da amostra são independentes entre si?
+   
+     Supomos que sim.
+     
+   * O tamanho da amostra é menos do que $10\%$ da população?
+   
+     Sim.
+     
+   * Há pelo menos 10 fracassos e pelo menos 10 sucessos na amostra?
+   
+     Sim.
+     
+   :::
+
+   ::: {.rmdbox latex=1}
+   
+   ### Hipóteses {-}
+   
+   $$
+   H_0 : p \geq 0{,}4
+   $$
+   
+   $$
+   H_A : p < 0{,}4
+   $$
+   
+   :::
+   
+   ::: {.rmdbox latex=1}
+   
+   ### Passo a passo {-}
+   
+   ```{r}
+   n <- 400
+   sucessos <- 150
+   
+   # Valor de p na hipótese nula
+   pzero <- .4
+   
+   # Supondo a hipótese nula
+   erro_padrao <- sqrt(pzero * (1 - pzero) / n)
+   cat('\nEP =', erro_padrao)
+   
+   pchapeu <- sucessos / n
+   cat('pchapeu =', pchapeu)
+   
+   # Valor p
+   valor_p <- pnorm(
+     pchapeu, 
+     mean = pzero, 
+     sd = erro_padrao
+   )
+   cat('Valor p =', valor_p)
+   ```
+   
+   Graficamente, o valor $p$ corresponde à área em vermelho abaixo da seguinte distribuição normal, com média $`r pzero`$ e desvio padrão $\approx `r erro_padrao`$:
+   
+   ```{r echo=FALSE}
+   plot_th(
+     media = pzero,
+     cauda = pchapeu %>% round(3),
+     erro = erro_padrao,
+     tipo = 'esq'
+   )      
+   ```
+   
+   Como o valor $p$ $(\approx `r valor_p`)$ é maior do que $\alpha$    ($0{,}05$), [não temos evidência para rejeitar $H_0$]{.hl}.
+   :::
+   
+   ::: {.rmdbox latex=1}
+   
+   ### Usando a função `prop.test()` {-}
+   
+   ```{r}
+   n <- 400
+   sucessos <- 150
+   
+   prop.test(sucessos, n, p = .4, alternative = 'less', correct = FALSE)
+   ```
+   
+   :::
+   
+   
