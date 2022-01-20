@@ -56,10 +56,9 @@
       Graficamente, segundo esta amostra, a distribuição amostral de $\hat p$ é a normal abaixo, com média $`r pchapeu`$ e desvio padrão $`r erro_padrao`$. A área preenchida corresponde a $95\%$ de probabilidade:
       
       ```{r echo=FALSE, out.extra='id=distr-amostral'}
-      plot_th(
-        media = pchapeu %>% round(3),
-        cauda = (pchapeu + margem_erro) %>% round(3),
-        erro = erro_padrao
+      plot_shaded(
+        args = c(mean = pchapeu, sd = erro_padrao),
+        cauda = (pchapeu + margem_erro)
       )
       ```
       

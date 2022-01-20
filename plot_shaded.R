@@ -21,6 +21,11 @@ plot_shaded <- function(
   
   p_cauda_esq <- (media - abs(media - cauda)) %>% round(digitos)
   p_cauda_dir <- (media + abs(media - cauda)) %>% round(digitos)
+  if (cauda < 0 & tipo %in% c('dir', 'esq')) {  # TODO: test this
+    temp <- p_cauda_dir
+    p_cauda_dir <- p_cauda_esq
+    p_cauda_esq <- temp
+  }
 
   cauda_esq <- stat_function(
     fun = distr,

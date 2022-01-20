@@ -73,15 +73,17 @@
    Graficamente, o valor $p$ corresponde à área em vermelho abaixo da seguinte distribuição normal, com média $`r pzero`$ e desvio padrão $\approx `r erro_padrao`$:
    
    ```{r echo=FALSE}
-   plot_th(
-     media = pzero,
-     cauda = pchapeu %>% round(3),
-     erro = erro_padrao,
+   plot_shaded(
+     args = c(mean = pzero, sd = erro_padrao),
+     cauda = pchapeu,
      tipo = 'esq'
    )      
    ```
    
    Como o valor $p$ $(\approx `r valor_p`)$ é maior do que $\alpha$    ($0{,}05$), [não temos evidência para rejeitar $H_0$]{.hl}.
+   
+   Como a hipótese alternativa é $H_A : p < 0{,}4$, o teste é unilateral.
+   
    :::
    
    ::: {.rmdbox latex=1}

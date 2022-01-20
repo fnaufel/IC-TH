@@ -50,9 +50,9 @@
       Graficamente, o valor $p$ corresponde à área em vermelho abaixo da seguinte distribuição normal, com média $`r pzero`$ e desvio padrão $\approx `r erro_padrao`$:
       
       ```{r echo=FALSE}
-      plot_th(
-        cauda = pchapeu %>% round(3),
-        erro = erro_padrao,
+      plot_shaded(
+        args = c(mean = .5, sd = erro_padrao),
+        cauda = pchapeu,
         tipo = 'bi'
       )      
       ```

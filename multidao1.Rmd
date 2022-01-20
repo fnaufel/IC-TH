@@ -48,32 +48,61 @@
  
    ### Passo a passo {-}
    
-   ```{r}
-   n = length(setores)
-   cat('n =', n)
+    ```{r}
+    n = length(setores)
+    cat('n =', n)
+    
+    xbarra <- mean(setores)
+    cat('Média amostral =', xbarra)
+    
+    s <- sd(setores)
+    cat('\nDesvio padrão amostral =', s)
+    
+    erro_padrao <- s / sqrt(n)
+    cat('\nEP =', erro_padrao)
+    
+    gl <- n - 1
+    cat('\nGraus de liberdade = ', gl)
+    
+    nivel_confianca <- .95
+    valor_critico <- -qt((1 - nivel_confianca)/2, df = gl)
+    cat('\nValor crítico =', valor_critico)
+    
+    margem_erro <- erro_padrao * valor_critico
+    cat('\nME =', margem_erro)
+    
+    intervalo <- xbarra + c(-1, 1) * margem_erro
+    cat('\nIC = [', intervalo[1], ';', intervalo[2], ']')
+    ```
    
-   xbarra <- mean(setores)
-   cat('Média amostral =', xbarra)
+   Graficamente, o intervalo de confiança corresponde à área em vermelho abaixo da seguinte distribuição $t$ padronizada, com $`r gl`$ graus de liberdade:
    
-   s <- sd(setores)
-   cat('\nDesvio padrão amostral =', s)
+    ```{r echo=FALSE}
+    plot_shaded(
+      minimo = -5,
+      maximo = 5,
+      distr = dt,
+      args = c(df = gl),
+      cauda = valor_critico,
+      tipo = 'ic'
+    )
+    ```
    
-   erro_padrao <- s / sqrt(n)
-   cat('\nEP =', erro_padrao)
+   Observe que [esta distribuição $t$ é padronizada: tem média $0$ e desvio padrão igual a $1$.]{.hl} Este é o costume ao plotar distribuições $t$.
    
-   gl <- n - 1
-   cat('\nGraus de liberdade = ', gl)
+   Aqui, cada valor no eixo $x$ corresponde ao número de desvios padrão acima ou abaixo da média. 
    
-   nivel_confianca <- .95
-   valor_critico <- -qt((1 - nivel_confianca)/2, df = gl)
-   cat('\nValor crítico =', valor_critico)
+   De fato, o limite inferior da área preenchida corresponde a 
    
-   margem_erro <- erro_padrao * valor_critico
-   cat('\nME =', margem_erro)
+    ```{r}
+    (intervalo[1] - xbarra) / erro_padrao
+    ```
+
+   e o limite superior da área preenchida corresponde a 
    
-   intervalo <- xbarra + c(-1, 1) * margem_erro
-   cat('\nIC = [', intervalo[1], ';', intervalo[2], ']')
-   ```
+    ```{r}
+    (intervalo[2] - xbarra) / erro_padrao
+    ```
    
    :::
    

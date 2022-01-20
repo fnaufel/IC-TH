@@ -41,8 +41,13 @@
    
    ```{r}
    n <- length(setores)
-   xbarra <- mean(setores)
+   cat('n =', n)
+   
    s <- sd(setores)
+   cat('Desvio padrão amostral =', s)
+
+   xbarra <- mean(setores)
+   cat('Média amostral =', xbarra)
 
    # Valor de μ na hipótese nula
    mizero <- 700
@@ -51,8 +56,9 @@
    erro_padrao <- s / sqrt(n)
    cat('\nEP =', erro_padrao)
    
-   # Média amostral padronizada
+   # Média amostral padronizada (supondo a hipótese nula)
    tzero <- (xbarra - mizero) / erro_padrao
+   cat('tzero =', tzero)
 
    # Graus de liberdade
    gl <- n - 1
@@ -67,6 +73,21 @@
    ```
    
    Como o valor $p$ $(\approx `r valor_p`)$ é muito maior do que $\alpha$ ($0{,}05$), [não temos evidência para rejeitar $H_0$]{.hl}.
+   
+   Graficamente, o valor $p$ corresponde à área em vermelho abaixo da seguinte distribuição $t$ padronizada, com $`r gl`$ graus de liberdade:
+   
+    ```{r echo=FALSE}
+    plot_shaded(
+      minimo = -5,
+      maximo = 5,
+      distr = dt,
+      args = c(df = gl),
+      cauda = tzero,
+      tipo = 'dir'
+    )
+    ```
+   
+   Como a hipótese alternativa é $H_A : \mu > 700$, o teste é unilateral.
    
    :::
    
