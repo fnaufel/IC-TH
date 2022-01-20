@@ -1,47 +1,50 @@
 
-plot_th <- function(
+plot_shaded <- function(
   minimo = 0,
   maximo = 1,
   distr = dnorm,
-  distr_args = numeric(),
-  media = .5,
+  args = numeric(),
   cauda,
-  erro,
-  tipo = 'ic'
+  tipo = 'ic',
+  digitos = 3,
+  preenchimento = 'red'
 ) {
   
-  p_cauda_esq <- media - abs(media - cauda)
-  p_cauda_dir <- media + abs(media - cauda)
-
+  minimo <- minimo %>% round(digitos)
+  maximo <- maximo %>% round(digitos)
+  
   if (identical(distr, dnorm))
-    args_to_use = c(mean = media, sd = erro)
+    media <- unname(args['mean']) %>% round(digitos)
   
   if (identical(distr, dt))
-    args_to_use = distr_args
-    
+    media <- 0
+  
+  p_cauda_esq <- (media - abs(media - cauda)) %>% round(digitos)
+  p_cauda_dir <- (media + abs(media - cauda)) %>% round(digitos)
+
   cauda_esq <- stat_function(
     fun = distr,
-    args = args_to_use,
+    args = args,
     xlim = c(minimo, p_cauda_esq),
-    fill = 'red',
+    fill = preenchimento,
     alpha = .5,
     geom = 'area'
   )
 
   cauda_dir <- stat_function(
     fun = distr,
-    args = args_to_use,
+    args = args,
     xlim = c(p_cauda_dir, maximo),
-    fill = 'red',
+    fill = preenchimento,
     alpha = .5,
     geom = 'area'
   )
   
   meio <- stat_function(
     fun = distr,
-    args = args_to_use,
+    args = args,
     xlim = c(p_cauda_esq, p_cauda_dir),
-    fill = 'red',
+    fill = preenchimento,
     alpha = .5,
     geom = 'area'
   )
@@ -65,7 +68,7 @@ plot_th <- function(
   ggplot() +
     stat_function(
       fun = distr,
-      args = args_to_use,
+      args = args,
       xlim = c(minimo, maximo)
     ) +
     preencher +

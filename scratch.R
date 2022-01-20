@@ -1,17 +1,42 @@
-df <- read_tsv('data/03 - Body Temperatures.txt') %>% 
-  na.omit()
+pchapeu <- .4767442 
+erro_padrao <- .05385804 
+margem_erro <- .1055598
 
-df <- df %>% 
-  mutate(
-    manhã = (5 * (`DAY 1 - 8AM` - 32)/9) %>% round(1),
-    tarde = (5 * (`DAY 1 - 12AM` - 32)/9) %>% round(1)
-  ) %>% 
-  select(manhã, tarde)
+plot_shaded(
+  minimo = 0,
+  maximo = 1,
+  distr = dnorm,
+  args = c(mean = pchapeu, sd = erro_padrao),
+  cauda = pchapeu + margem_erro,
+  tipo = 'ic',
+  digitos = 3,
+  preenchimento = 'blue'
+)
 
-library(datapasta)
 
-tribble_construct(df)
+plot_shaded(
+  minimo = 0,
+  maximo = 1,
+  distr = dnorm,
+  args = c(mean = .5, sd = erro_padrao),
+  cauda = pchapeu,
+  tipo = 'bi',
+  digitos = 3
+)
 
-df %>% View()
 
-df %>% pull(tarde) %>% paste(collapse = ', ') %>% cat()
+gl <- 26
+valor_critico <- 2.055529
+erro_padrao <- 44.41377
+xbarra <- 653.2593
+
+plot_shaded(
+  minimo = -5,
+  maximo = 5,
+  distr = dt,
+  args = c(df = gl),
+  cauda = valor_critico,
+  tipo = 'bi',
+  digitos = 3
+)
+  

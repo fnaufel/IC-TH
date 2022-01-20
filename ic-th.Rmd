@@ -53,7 +53,7 @@ source(
 options(fmdigits = 3)
 
 # Plots de distribuições amostrais
-source('plot_th.R')
+source('plot_shaded.R')
 
 gabarito <- FALSE
 gabarito <- TRUE
