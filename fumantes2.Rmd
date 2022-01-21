@@ -52,7 +52,7 @@
       ```{r echo=FALSE}
       plot_shaded(
         args = c(mean = .5, sd = erro_padrao),
-        cauda = pchapeu,
+        extremos = c(pchapeu, .5 + (.5 - pchapeu)),
         tipo = 'bi'
       )      
       ```

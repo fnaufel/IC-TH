@@ -82,7 +82,7 @@
       maximo = 5,
       distr = dt,
       args = c(df = gl),
-      cauda = tzero,
+      extremos = tzero,
       tipo = 'dir'
     )
     ```

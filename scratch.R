@@ -119,3 +119,26 @@ pt(
 # Checking EP -------------------------------------------------------------
 
 dp <- (intervalo[2] - xbarra) /valor_critico
+
+
+
+# New plot_shaded ---------------------------------------------------------
+
+
+plot_shaded(
+  args = c(mean = .5, sd = .2),
+  extremos = c(.3, .7)
+)
+
+plot_shaded(
+  args = c(mean = .5, sd = .2),
+  extremos = c(.3, .7),
+  tipo = 'bi'
+)
+
+plot_shaded(
+  args = c(mean = .5, sd = .2),
+  extremos = c(.3),
+  tipo = 'dir'
+)
+

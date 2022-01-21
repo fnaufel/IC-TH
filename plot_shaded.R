@@ -4,7 +4,7 @@ plot_shaded <- function(
   maximo = 1,
   distr = dnorm,
   args = numeric(),
-  cauda,
+  extremos = numeric(),
   tipo = 'ic',
   digitos = 3,
   preenchimento = 'red'
@@ -12,6 +12,7 @@ plot_shaded <- function(
   
   minimo <- minimo %>% round(digitos)
   maximo <- maximo %>% round(digitos)
+  extremos <- extremos %>% round(digitos)
   
   if (identical(distr, dnorm))
     media <- unname(args['mean']) %>% round(digitos)
@@ -19,56 +20,62 @@ plot_shaded <- function(
   if (identical(distr, dt))
     media <- 0
   
-  p_cauda_esq <- (media - abs(media - cauda)) %>% round(digitos)
-  p_cauda_dir <- (media + abs(media - cauda)) %>% round(digitos)
-  if (cauda < 0 & tipo %in% c('dir', 'esq')) {  # TODO: test this
-    temp <- p_cauda_dir
-    p_cauda_dir <- p_cauda_esq
-    p_cauda_esq <- temp
+  camadas <- list()
+  
+  if (tipo %in% c('bi', 'ic')) {
+    esq <- extremos[1]
+    dir <- extremos[2]
   }
-
-  cauda_esq <- stat_function(
-    fun = distr,
-    args = args,
-    xlim = c(minimo, p_cauda_esq),
-    fill = preenchimento,
-    alpha = .5,
-    geom = 'area'
-  )
-
-  cauda_dir <- stat_function(
-    fun = distr,
-    args = args,
-    xlim = c(p_cauda_dir, maximo),
-    fill = preenchimento,
-    alpha = .5,
-    geom = 'area'
-  )
-  
-  meio <- stat_function(
-    fun = distr,
-    args = args,
-    xlim = c(p_cauda_esq, p_cauda_dir),
-    fill = preenchimento,
-    alpha = .5,
-    geom = 'area'
-  )
-
-  preencher <- switch (
-    tipo,
-    'ic'  = meio,
-    'bi'  = list(cauda_esq, cauda_dir),
-    'esq' = cauda_esq,
-    'dir' = cauda_dir
-  )
-  
-  brks <- c(minimo, p_cauda_esq, media, p_cauda_dir, maximo)
   
   if (tipo == 'esq')
-    brks <- brks[-4]
-
+    esq <- extremos[1]
+  
   if (tipo == 'dir')
-    brks <- brks[-2]
+    dir <- extremos[1]
+
+  if (tipo %in% c('esq', 'bi')) {
+    camadas <- camadas %>% 
+      append(
+        stat_function(
+          fun = distr,
+          args = args,
+          xlim = c(minimo, esq),
+          fill = preenchimento,
+          alpha = .5,
+          geom = 'area'
+        )
+      )
+  }
+
+  if (tipo %in% c('dir', 'bi')) {
+    camadas <- camadas %>% 
+      append(
+        stat_function(
+          fun = distr,
+          args = args,
+          xlim = c(dir, maximo),
+          fill = preenchimento,
+          alpha = .5,
+          geom = 'area'
+        )
+      )
+  }
+
+  if (tipo == 'ic') {
+    camadas <- camadas %>% 
+      append(
+        stat_function(
+          fun = distr,
+          args = args,
+          xlim = c(esq, dir),
+          fill = preenchimento,
+          alpha = .5,
+          geom = 'area'
+        )
+      )
+  }
+  
+  brks <- c(minimo, media, maximo, extremos) %>% sort()
   
   ggplot() +
     stat_function(
@@ -76,7 +83,7 @@ plot_shaded <- function(
       args = args,
       xlim = c(minimo, maximo)
     ) +
-    preencher +
+    camadas +
     scale_x_continuous(
       breaks = brks
     ) +
@@ -86,3 +93,4 @@ plot_shaded <- function(
     theme(axis.text.x = element_text(angle = 90))
   
 }
+

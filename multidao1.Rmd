@@ -83,7 +83,7 @@
       maximo = 5,
       distr = dt,
       args = c(df = gl),
-      cauda = valor_critico,
+      extremos = c(valor_critico, -valor_critico) %>% sort(),
       tipo = 'ic'
     )
     ```

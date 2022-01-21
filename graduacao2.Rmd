@@ -75,7 +75,7 @@
    ```{r echo=FALSE}
    plot_shaded(
      args = c(mean = pzero, sd = erro_padrao),
-     cauda = pchapeu,
+     extremos = pchapeu,
      tipo = 'esq'
    )      
    ```

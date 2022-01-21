@@ -58,7 +58,7 @@
       ```{r echo=FALSE, out.extra='id=distr-amostral'}
       plot_shaded(
         args = c(mean = pchapeu, sd = erro_padrao),
-        cauda = (pchapeu + margem_erro)
+        extremos = intervalo
       )
       ```
       
