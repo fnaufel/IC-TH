@@ -1,0 +1,25 @@
+
+   ::: {.rmdbox latex=1}
+   
+   Quando construímos um intervalo de confiança, a margem de erro é calculada como
+   
+   $$
+   \text{ME} = z^\star \cdot \frac{\sigma}{\sqrt{n}}
+   $$
+   
+   onde $z^\star = {}$ `-qnorm((1 - .95)/2)` ${} \approx 1{,}96$.
+   
+   Se isolarmos $n$, chegamos a
+   
+   $$
+   n = \left(\frac{z^\star \cdot \sigma}{\text{ME}}\right)^2
+   $$
+
+   Substituindo os valores que temos:
+   
+   $$
+   n = \left(\frac{1{,}96 \cdot 12{,}54}{2}\right)^2
+     \approx `r (1.96 * 12.54 / 2)^2 %>% ceiling()`
+   $$
+   
+   :::

@@ -1,0 +1,36 @@
+
+   ::: {.rmdbox latex=1}
+   
+   Observe que
+   
+   * O desvio padrão populacional $\sigma = `r sigma`$ é bem próximo do desvio padrão amostral $s = `r s`$.
+   
+   * Com $`r gl`$ graus de liberdade, a distribuição $t$ é muito próxima da normal padrão:
+   
+      ```{r echo=FALSE}
+      ggplot() +
+        stat_function(
+          data = tibble(distr = 'normal padrão'),
+          mapping = aes(color = distr, linetype = distr),
+          fun = dnorm,
+          xlim = c(-3, 3)
+        ) +
+        stat_function(
+          data = tibble(distr = paste('t com', gl, 'g.l.')),
+          mapping = aes(color = distr, linetype = distr),
+          fun = dt,
+          args = c(df = gl),
+          xlim = c(-3, 3)
+        ) +
+        scale_color_manual(values = c('red', 'black')) +
+        scale_linetype_manual(values = c('solid', 'dashed')) +
+        labs(
+          color = NULL,
+          linetype = NULL,
+          y = NULL
+        )
+      ```
+   
+   Estas semelhanças tornam os cálculos dos valores $p$ bem parecidos, tanto no teste $z$ quanto no teste $t$.
+   
+   :::

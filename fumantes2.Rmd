@@ -36,7 +36,7 @@
       cat('\nEP =', erro_padrao)
       
       pchapeu <- sucessos / n
-      cat('pchapeu =', pchapeu)
+      cat('\npchapeu =', pchapeu)
       
       # Valor p
       valor_p <- 2 * pnorm(
@@ -44,7 +44,7 @@
         mean = pzero, 
         sd = erro_padrao
       )
-      cat('Valor p =', valor_p)
+      cat('\nValor p =', valor_p)
       ```
       
       Graficamente, o valor $p$ corresponde à área em vermelho abaixo da seguinte distribuição normal, com média $`r pzero`$ e desvio padrão $\approx `r erro_padrao`$:

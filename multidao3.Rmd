@@ -29,7 +29,7 @@
    H_A : \mu > 700
    $$
    
-   Antes de fazer qualquer cálculo, percebemos que o valor $700$ está dentro do intervalo de confiança de $95\%$ para a média de pessoas por setor.
+   Antes de fazer qualquer cálculo, percebemos que o valor $700$ está dentro do [intervalo de confiança](#usando-a-função-t.test) de $95\%$ para a média de pessoas por setor.
    
    Isto significa que a hipótese de nulidade [não vai ser rejeitada]{.hl}.
    
@@ -44,10 +44,10 @@
    cat('n =', n)
    
    s <- sd(setores)
-   cat('Desvio padrão amostral =', s)
+   cat('\nDesvio padrão amostral =', s)
 
    xbarra <- mean(setores)
-   cat('Média amostral =', xbarra)
+   cat('\nMédia amostral =', xbarra)
 
    # Valor de μ na hipótese nula
    mizero <- 700
@@ -58,7 +58,7 @@
    
    # Média amostral padronizada (supondo a hipótese nula)
    tzero <- (xbarra - mizero) / erro_padrao
-   cat('tzero =', tzero)
+   cat('\ntzero =', tzero)
 
    # Graus de liberdade
    gl <- n - 1
@@ -69,12 +69,16 @@
      df = gl,
      lower.tail = FALSE
    )
-   cat('Valor p =', valor_p)
+   cat('\nValor p =', valor_p)
    ```
    
    Como o valor $p$ $(\approx `r valor_p`)$ é muito maior do que $\alpha$ ($0{,}05$), [não temos evidência para rejeitar $H_0$]{.hl}.
    
-   Graficamente, o valor $p$ corresponde à área em vermelho abaixo da seguinte distribuição $t$ padronizada, com $`r gl`$ graus de liberdade:
+   Graficamente, o valor $p$ corresponde à área em vermelho abaixo da seguinte distribuição $t$, com $`r gl`$ graus de liberdade, que corresponde à variável padronizada
+   
+   $$
+   \frac{x - \bar x}{s/\sqrt{n}}
+   $$
    
     ```{r echo=FALSE}
     plot_shaded(

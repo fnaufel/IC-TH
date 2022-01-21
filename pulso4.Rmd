@@ -1,0 +1,122 @@
+
+   ::: {.rmdbox latex=1}
+   
+   ### Condições {-}
+   
+   Como agora não temos o desvio padrão da população, precisamos fazer um teste $t$, cujas condições são:
+   
+   * A amostra é aleatória, representativa da população?
+   
+     Supomos que sim.
+     
+   * Os valores da amostra são independentes entre si?
+   
+     Supomos que sim.
+     
+   * A amostra vem de uma população aproximadamente normal?
+   
+     Podemos fazer um teste de normalidade:
+   
+      ```{r}
+      pulsacao %>% shapiro.test()
+      ```
+      
+     O valor $p$ acima de $0{,}05$ é evidência de que os dados seguem uma distribuição normal.
+     
+     Podemos fazer um histograma:
+     
+      ```{r}
+      tibble(n = pulsacao) %>% 
+        ggplot(aes(n)) +
+          geom_histogram(bins = 9) +
+          labs(y = NULL)
+      ```
+      
+     A forma do histograma é aproximadamente normal.
+     
+   :::
+
+   ::: {.rmdbox latex=1}
+   
+   ### Hipóteses {-}
+   
+   $$
+   H_0 : \mu \geq 70
+   $$
+   
+   $$
+   H_A : \mu < 70
+   $$
+   
+   :::
+
+   ::: {.rmdbox latex=1}
+ 
+   ### Passo a passo {-}
+   
+    ```{r}
+    n <- length(pulsacao)
+    cat('n =', n)
+    
+    s <- sd(pulsacao)
+    cat('\nDesvio padrão amostral =', s)
+    
+    xbarra <- mean(pulsacao)
+    cat('\nMédia amostral =', xbarra)
+    
+    # Valor de μ na hipótese nula
+    mizero <- 70
+    
+    # Supondo a hipótese nula 
+    erro_padrao <- s / sqrt(n)
+    cat('\nEP =', erro_padrao)
+    
+    # Média amostral padronizada (supondo a hipótese nula)
+    tzero <- (xbarra - mizero) / erro_padrao
+    cat('\ntzero =', tzero)
+    
+    # Graus de liberdade
+    gl <- n - 1
+    cat('\ngl =', gl)
+    
+    # Valor p
+    valor_p <- pt(
+     tzero, 
+     df = gl
+    )
+    cat('\nValor p =', valor_p)
+    ```
+   
+   Como o valor $p$ $(\approx `r valor_p`)$ é muito maior do que $\alpha$ ($0{,}05$), [não temos evidência para rejeitar $H_0$]{.hl}.
+   
+   Graficamente, o valor $p$ corresponde à área em vermelho abaixo da seguinte distribuição $t$, com $`r gl`$ graus de liberdade, que corresponde à variável padronizada
+   
+   $$
+   \frac{x - \bar x}{s/\sqrt{n}}
+   $$
+   
+    ```{r echo=FALSE}
+    plot_shaded(
+      minimo = -5,
+      maximo = 5,
+      distr = dt,
+      args = c(df = gl),
+      extremos = tzero,
+      tipo = 'esq'
+    )
+    ```
+   
+   Como a hipótese alternativa é $H_A : \mu < 70$, o teste é unilateral.
+   
+   :::
+   
+   ::: {.rmdbox latex=1}
+   
+   ### Usando a função `t.test()` {-}
+   
+    ```{r}
+    t.test(x = pulsacao, alternative = 'less', mu = mizero)
+    ```
+   
+   :::
+ 

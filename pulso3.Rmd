@@ -1,0 +1,108 @@
+
+   ::: {.rmdbox latex=1}
+   
+   ### Condições {-}
+   
+   Como [temos o valor do desvio padrão da população]{.hl}, podemos usar o teste $z$, cujas condições são:
+   
+   * A amostra é aleatória, representativa da população?
+   
+     Supomos que sim.
+     
+   * Os valores da amostra são independentes entre si?
+   
+     Supomos que sim.
+     
+   * O tamanho da amostra é menor do que $10\%$ da população?
+     
+     A população é o conjunto de todas as mulheres adultas (da cidade? do país?) 
+     
+     Nossa amostra tem $`r length(pulsacao)`$, que é menos do que $10\%$ da população.
+     
+   :::
+   
+   ::: {.rmdbox latex=1}
+   
+   ### Hipóteses {-}
+   
+   $$
+   H_0 : \mu \geq 70
+   $$
+   
+   $$
+   H_A : \mu < 70
+   $$
+   
+   :::
+
+   ::: {.rmdbox latex=1}
+
+   ### Passo a passo {-}
+   
+   ```{r}
+   n <- length(pulsacao)
+   cat('n =', n)
+   
+   xbarra <- mean(pulsacao)
+   cat('\nMédia amostral =', xbarra)
+   
+   # Desvio padrão da população (dado)
+   sigma <- 12.54
+
+   # Valor de μ na hipótese nula
+   mizero <- 70
+   
+   erro_padrao <- sigma / sqrt(n)
+   cat('\nEP =', erro_padrao)
+   
+   # Valor p
+   valor_p <- pnorm(
+     xbarra, 
+     mean = mizero,
+     sd = erro_padrao
+   )
+   cat('\nValor p =', valor_p)
+   ```
+   
+   Como o valor $p$ $(\approx `r valor_p`)$ é muito maior do que $\alpha$ ($0{,}05$), [não temos evidência para rejeitar $H_0$]{.hl}.
+   
+   Na verdade, como a média da amostra é [maior]{.hl} do que $70$bpm, esta amostra não ajuda a refutar a hipótese de nulidade, que diz que $\mu < 70$. 
+   
+   Além disso, o valor baixo do erro padrão diz que as amostras não variam muito em suas médias; ou seja, [esta é uma amostra típica.]{.hl}
+   
+   Por isso, [é praticamente impossível refutar a hipótese de nulidade]{.hl} com esta amostra.
+   
+   Graficamente, o valor $p$ corresponde à área em vermelho abaixo da normal na seguinte figura. Perceba como a área à esquerda do valor de $\bar x = `r xbarra`$ é praticamente $100\%$ da área inteira abaixo da curva:
+   
+    ```{r echo=FALSE}
+    plot_shaded(
+      minimo = 65,
+      maximo = 75,
+      args = c(mean = mizero, sd = erro_padrao),
+      extremos = xbarra,
+      tipo = 'esq'
+    )
+    ```
+   
+   
+   Como a hipótese alternativa é $H_A : \mu < 70$, o teste é unilateral.
+   
+   :::
+   
+   ::: {.rmdbox latex=1}
+   
+   ### Usando a função `z.test()` {-}
+   
+    ```{r}
+    library(BSDA)
+    z.test(
+      pulsacao,
+      alternative = 'less',
+      mu = 70,
+      sigma.x = sigma
+    )
+    ```
+   
+   :::
+ 
+    

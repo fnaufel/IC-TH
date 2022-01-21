@@ -53,7 +53,7 @@
     cat('n =', n)
     
     xbarra <- mean(setores)
-    cat('Média amostral =', xbarra)
+    cat('\nMédia amostral =', xbarra)
     
     s <- sd(setores)
     cat('\nDesvio padrão amostral =', s)
@@ -75,7 +75,7 @@
     cat('\nIC = [', intervalo[1], ';', intervalo[2], ']')
     ```
    
-   Graficamente, o intervalo de confiança corresponde à área em vermelho abaixo da seguinte distribuição $t$ padronizada, com $`r gl`$ graus de liberdade:
+   Graficamente, o intervalo de confiança corresponde à área em vermelho abaixo da seguinte distribuição $t$, com $`r gl`$ graus de liberdade:
    
     ```{r echo=FALSE}
     plot_shaded(
@@ -88,7 +88,13 @@
     )
     ```
    
-   Observe que [esta distribuição $t$ é padronizada: tem média $0$ e desvio padrão igual a $1$.]{.hl} Este é o costume ao plotar distribuições $t$.
+   Observe que esta distribuição $t$ corresponde à variável padronizada
+   
+   $$
+   \frac{x - \bar x}{s/\sqrt{n}}
+   $$
+   
+   Trabalhamos com esta variável padronizada porque [a distribuição $t$ sempre tem média zero.]{.hl}
    
    Aqui, cada valor no eixo $x$ corresponde ao número de desvios padrão acima ou abaixo da média. 
    

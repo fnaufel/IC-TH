@@ -195,6 +195,10 @@ setores <- c(
 
 1. Qual o tamanho mínimo da amostra necessária para estimar, com um nível de confiança de $95\%$ e uma margem de erro de $2$ batimentos por minuto (bpm), a pulsação média de mulheres adultas? De estudos anteriores, podemos usar a informação de que o desvio padrão da população é $\sigma = 12{,}54$ bpm. 
 
+   ```{r child='pulso1.Rmd', eval=gabarito}
+    
+   ```
+
 1. O vetor `pulsacao` contém os valores das pulsações (em bpm) de diversas mulheres. 
 
     ```{r}
@@ -213,9 +217,21 @@ setores <- c(
 
 1. Teste a afirmação de que a pulsação média de mulheres adultas é [menor do que $70$ bpm]{.hl}. Use $\alpha = 0{,}05$. Use o fato de que $\sigma = 12{,}54$ bpm.
 
+   ```{r child='pulso3.Rmd', eval=gabarito}
+    
+   ```
+
 1. Refaça o item anterior [sem usar o fato de que $\sigma = 12{,}54$ bpm.]{.hl}
 
+   ```{r child='pulso4.Rmd', eval=gabarito}
+    
+   ```
+
 1. Compare e comente os resultados.
+
+   ```{r child='pulso5.Rmd', eval=gabarito}
+    
+   ```
 
 
 # PlayStations com *bootstrapping*
