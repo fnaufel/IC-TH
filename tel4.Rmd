@@ -1,0 +1,9 @@
+
+   ::: {.rmdbox latex=1}
+   
+    ```{r}
+    ic_teste <- t.test(radiacao)$conf.int
+    ic_teste
+    ```
+
+   :::

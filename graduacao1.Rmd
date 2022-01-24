@@ -1,7 +1,7 @@
 
    ::: {.rmdbox latex=1}
    
-   Quando construímos um intervalo de confiança, a margem de erro é calculada como
+   Quando construímos um intervalo de confiança com nível de confiança de $95\%$, a margem de erro é calculada como
    
    $$
    \text{ME} = z^\star \cdot \sqrt{\frac{\hat p (1 - \hat p)}{n}}

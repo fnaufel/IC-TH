@@ -1,0 +1,9 @@
+
+   ::: {.rmdbox latex=1}
+   
+    ```{r}
+    diferencas <- df$manhã - df$tarde
+    diferencas
+    ```
+
+   :::

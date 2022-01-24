@@ -3,7 +3,7 @@
    
    ### Condições {-}
    
-   Como agora não temos o desvio padrão da população, precisamos fazer um teste $t$, cujas condições são:
+   Como agora não temos o desvio padrão da população, precisamos fazer um [teste $t$]{.hl}, cujas condições são:
    
    * A amostra é aleatória, representativa da população?
    
@@ -94,6 +94,10 @@
    $$
    \frac{x - \bar x}{s/\sqrt{n}}
    $$
+   
+   Trabalhamos com esta variável padronizada porque [a distribuição $t$ sempre tem média zero.]{.hl}
+   
+   Aqui, cada valor no eixo $x$ corresponde ao número de desvios padrão acima ou abaixo da média. 
    
     ```{r echo=FALSE}
     plot_shaded(

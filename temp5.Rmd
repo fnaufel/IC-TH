@@ -1,0 +1,9 @@
+
+   ::: {.rmdbox latex=1}
+   
+    ```{r}
+    ic_teste <- t.test(df$manhã, df$tarde, paired = TRUE)$conf.int
+    ic_teste
+    ```
+
+   :::

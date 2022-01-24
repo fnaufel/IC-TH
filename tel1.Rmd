@@ -1,0 +1,21 @@
+
+   ::: {.rmdbox latex=1}
+   
+    ```{r}
+    n_amostras <- 1e4
+    n <- length(radiacao)
+    amostras <- replicate(
+      n_amostras, 
+      sample(radiacao, n, replace = TRUE),
+      simplify = FALSE
+    )
+    ```
+
+   Vamos examinar a lista gerada:
+   
+    ```{r}
+    str(amostras)
+    ```
+
+   
+   :::

@@ -1,0 +1,16 @@
+
+   ::: {.rmdbox latex=1}
+   
+   As funções da família `map` aplicam uma operação (aqui, a média) a cada elemento de um vetor, retornando uma lista. Veja `?purrr::map` para mais detalhes sobre programação funcional em R.
+   
+    ```{r}
+    medias <- amostras %>% 
+      map_dbl(~mean(.))
+    ```
+   
+    ```{r}
+    str(medias)
+    ```
+   
+   
+   :::

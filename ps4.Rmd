@@ -1,0 +1,9 @@
+
+   ::: {.rmdbox latex=1}
+   
+    ```{r}
+    ic_teste <- prop.test(sucessos, n, correct = FALSE)$conf.int
+    ic_teste
+    ```
+
+   :::

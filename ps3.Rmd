@@ -1,0 +1,11 @@
+
+   ::: {.rmdbox latex=1}
+   
+    ```{r}
+    ic_bs <- proporcoes %>% 
+      quantile(c(.05, .95))
+    
+    ic_bs
+    ```
+    
+   :::

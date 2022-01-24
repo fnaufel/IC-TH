@@ -1,0 +1,44 @@
+
+   ::: {.rmdbox latex=1}
+   
+   Poderíamos criar um vetor com os $200$ elementos da amostra original para passar para a função `sample`:
+   
+    ```{r}
+    amostra_original <- rep(c(TRUE, FALSE), c(124, 76))
+    ```
+   
+   Mas podemos pensar de outro modo: ao escolhermos [um elemento]{.hl} da amostra original, a probabilidade de obtermos `TRUE` é igual a $124/200$.
+   
+   Ou seja, sortear $200$ pessoas desta amostra [com reposição]{.hl} equivale a sortear $200$ valores booleanos, com `TRUE` tendo probabilidade $124/200$ de ser sorteado a cada vez:
+   
+    ```{r}
+    n_amostras <- 1e4
+    n <- 200
+    sucessos <- 124
+    p <- sucessos / n
+    
+    sortear_amostra_bool <- function(n, p) {
+      
+      sample(c(TRUE, FALSE), n, replace = TRUE, prob = c(p, 1 - p))
+      
+    }
+    ```
+   
+   Para construir a lista de $10$ mil amostras:
+   
+    ```{r}
+    amostras <- replicate(
+      n_amostras, 
+      sortear_amostra_bool(n, p),
+      simplify = FALSE
+    )
+    ```
+
+   Vamos examinar a lista gerada:
+   
+    ```{r}
+    str(amostras)
+    ```
+
+   
+   :::

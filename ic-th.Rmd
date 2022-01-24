@@ -55,6 +55,8 @@ options(fmdigits = 3)
 # Plots de distribuições amostrais
 source('plot_shaded.R')
 
+set.seed(123456)
+
 gabarito <- FALSE
 gabarito <- TRUE
 ```
@@ -242,15 +244,35 @@ O método de *bootstrapping* consiste em simular muitas amostras --- [com reposi
 
 1. Armazene, em uma lista, $10$ mil amostras, cada uma com $200$ pessoas sorteadas [com reposição]{.hl} a partir da amostra original $A$ acima (com todas as $200$ pessoas tendo a mesma probabilidade de sorteio).
 
+   ```{r child='ps1.Rmd', eval=gabarito}
+    
+   ```
+
 1. Armazene, em um vetor de $10$ mil elementos, as proporções de possuidores de PlayStations nas amostras obtidas no item anterior.
+
+   ```{r child='ps2.Rmd', eval=gabarito}
+    
+   ```
 
 1. Imprima os valores deste vetor que estão no quantil $0{,}05$ e no quantil $0{,}95$. Estes são os extremos do intervalo de confiança para a proporção de possuidores de PlayStations na população, com $95\%$ de confiança, calculados via *bootstrapping*.
 
    [Uma das vantagens do *bootstrapping* é não precisar de qualquer conhecimento sobre a população --- sua distribuição, sua variância etc.]{.hl}
+   
+   ```{r child='ps3.Rmd', eval=gabarito}
+    
+   ```
 
 1. Use a função `prop.test()` do R para construir um intervalo de confiança para a proporção de possuidores de PlayStations na população, com $95\%$ de confiança --- [não é necessário fazer os cálculos passo a passo.]{.hl} 
 
+   ```{r child='ps4.Rmd', eval=gabarito}
+    
+   ```
+
 1. Compare com o resultado do *bootstrapping*.
+
+   ```{r child='ps5.Rmd', eval=gabarito}
+    
+   ```
 
 
 # Telefones celulares com *bootstrapping*
@@ -265,15 +287,35 @@ O método de *bootstrapping* consiste em simular muitas amostras --- [com reposi
 
 1. Armazene, em uma lista, $10$ mil amostras, cada uma com $`r length(radiacao)`$ elementos sorteados [com reposição]{.hl} a partir do vetor `radiacao` (com todos os elementos tendo a mesma probabilidade de sorteio).
 
+   ```{r child='tel1.Rmd', eval=gabarito}
+    
+   ```
+
 1. Armazene, em um vetor de $10$ mil elementos, as médias das amostras obtidas no item anterior.
+
+   ```{r child='tel2.Rmd', eval=gabarito}
+    
+   ```
 
 1. Imprima os valores deste vetor que estão no quantil $0{,}05$ e no quantil $0{,}95$. Estes são os extremos do intervalo de confiança para a radiação média na população, com $95\%$ de confiança, calculados via *bootstrapping*.
 
    [Uma das vantagens do *bootstrapping* é não precisar de qualquer conhecimento sobre a população --- sua distribuição, sua variância etc.]{.hl}
-
+   
+   ```{r child='tel3.Rmd', eval=gabarito}
+    
+   ```
+   
 1. Use a função `t.test()` do R para construir um intervalo de confiança para a radiação média, com $95\%$ de confiança --- [não é necessário fazer os cálculos passo a passo.]{.hl} 
 
+   ```{r child='tel4.Rmd', eval=gabarito}
+    
+   ```
+
 1. Compare com o resultado do *bootstrapping*.
+
+   ```{r child='tel5.Rmd', eval=gabarito}
+    
+   ```
 
 
 # Sonhando em cores ou em preto e branco^[Baseado em Murzyn, E. (2008). "Do we only dream in colour? a comparison of reported dream colour in younger and older adults with different experiences of black and white media." *Consciousness and Cognition*, 17(4), 1228–1237. http://dx.doi.org/10.1016/j.concog.2008.09.002]
@@ -287,7 +329,7 @@ Dentre $298$ pessoas [com menos de $25$ anos]{.hl}, $13$ disseram que sonham em 
 1. Teste a afirmação de que a proporção de pessoas [com mais de $55$ anos]{.hl} que sonham em preto e branco é [maior do que]{.hl} a proporção de pessoas [com menos de $25$ anos]{.hl} que sonham em preto e branco. Use $\alpha = 0{,}01$.
 
 
-# Professores $\times$ professoras^[Baseado em Andrew Gelman e Jennifer Hill, "Replication Data for Data Analysis Using Regression Multilevel Hierarchical Models" (2009), http://hdl.handle.net/1902.1/10285
+# Professores $\times$ professoras^[Baseado em Andrew Gelman e Jennifer Hill (2009), "Replication Data for Data Analysis Using Regression Multilevel Hierarchical Models", http://hdl.handle.net/1902.1/10285
 ]
 
 Professoras mulheres recebem avaliações melhores do que professores homens?
@@ -394,17 +436,41 @@ O método de *bootstrapping* consiste em simular muitas amostras --- [com reposi
 
 1. Calcule a diferença entre a temperatura matinal e a temperatura vespertina para cada pessoa, armazenando os resultados em um vetor `diferencas`, com $32$ valores.
 
+   ```{r child='temp1.Rmd', eval=gabarito}
+    
+   ```
+
 1. Armazene, em uma lista, $10$ mil amostras, cada uma com $32$ elementos sorteados [com reposição]{.hl} a partir do vetor `diferencas` (com todos os elementos tendo a mesma probabilidade de sorteio).
 
+   ```{r child='temp2.Rmd', eval=gabarito}
+    
+   ```
+
 1. Armazene, em um vetor de $10$ mil elementos, as médias das amostras obtidas no item anterior.
+
+   ```{r child='temp3.Rmd', eval=gabarito}
+    
+   ```
 
 1. Imprima os valores deste vetor que estão no quantil $0{,}05$ e no quantil $0{,}95$. Estes são os extremos do intervalo de confiança para a diferença média de temperatura na população, com $95\%$ de confiança, calculados via *bootstrapping*.
 
    [Uma das vantagens do *bootstrapping* é não precisar de qualquer conhecimento sobre a população --- sua distribuição, sua variância etc.]{.hl}
+   
+   ```{r child='temp4.Rmd', eval=gabarito}
+    
+   ```
 
 1. Use a função `t.test()` do R para construir um intervalo de confiança para a diferença média de temperatura na população, com $95\%$ de confiança --- [não é necessário fazer os cálculos passo a passo.]{.hl} 
 
+   ```{r child='temp5.Rmd', eval=gabarito}
+    
+   ```
+
 1. Compare com o resultado do *bootstrapping*.
+
+   ```{r child='temp6.Rmd', eval=gabarito}
+    
+   ```
 
 
 <div style='height: 50px'></div>

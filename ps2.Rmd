@@ -1,0 +1,18 @@
+
+   ::: {.rmdbox latex=1}
+   
+   Lembre-se de que calcular a proporção de valores `TRUE` em um vetor booleano equivale a calcular a média (já que `TRUE` é visto como $1$, e `FALSE` é visto como $0$).
+   
+   As funções da família `map` aplicam uma operação (aqui, a média) a cada elemento de um vetor, retornando uma lista. Veja `?purrr::map` para mais detalhes sobre programação funcional em R.
+   
+    ```{r}
+    proporcoes <- amostras %>% 
+      map_dbl(~mean(.))
+    ```
+   
+    ```{r}
+    str(proporcoes)
+    ```
+   
+   
+   :::

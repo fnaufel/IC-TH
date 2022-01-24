@@ -1,7 +1,7 @@
 
    ::: {.rmdbox latex=1}
    
-   Quando construímos um intervalo de confiança, a margem de erro é calculada como
+   Quando construímos um intervalo de confiança com nível de confiança de $95\%$, a margem de erro é calculada como
    
    $$
    \text{ME} = z^\star \cdot \frac{\sigma}{\sqrt{n}}
@@ -21,5 +21,7 @@
    n = \left(\frac{1{,}96 \cdot 12{,}54}{2}\right)^2
      \approx `r (1.96 * 12.54 / 2)^2 %>% ceiling()`
    $$
+   
+   Vamos precisar de uma amostra de $`r (1.96 * 12.54 / 2)^2 %>% ceiling()`$ ou mais pessoas.
    
    :::

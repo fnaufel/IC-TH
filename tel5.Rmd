@@ -1,0 +1,55 @@
+
+   ::: {.rmdbox latex=1}
+   
+    ```{r echo=FALSE}
+    df <- tibble(
+      nome = c('bootstrap', 'teste'),
+      inf = unname(c(ic_bs[1], ic_teste[1])) %>% round(3),
+      sup = unname(c(ic_bs[2], ic_teste[2])) %>% round(3),
+      centro = c(mean(ic_bs), mean(ic_teste)) %>% round(3)
+    )
+    
+    df %>% ggplot() +
+      geom_errorbarh(
+        aes(
+          xmin = inf,
+          xmax = sup,
+          y = nome,
+          height = .1,
+          color = nome
+        ),
+        size = 2,
+        show.legend = FALSE
+      ) + 
+      geom_point(
+        aes(
+          x = centro,
+          y = nome,
+          color = nome
+        ),
+        size = 5,
+        show.legend = FALSE
+      ) +
+      labs(x = NULL, y = NULL) +
+      scale_y_discrete(
+        limits = df$nome %>% rev()
+      ) +
+      scale_x_continuous(
+        breaks = c(df$inf, df$sup) %>% round(3)
+      ) +
+      theme(
+        axis.text.x = element_text(angle = 90)
+      )
+    ```
+
+   Os centros dos intervalos são
+   
+   * *Bootstrap*: $`r mean(ic_bs)`$
+   
+   * *Teste*: $`r mean(ic_teste)`$
+   
+   Os extremos de um intervalo são mais ou menos próximos dos extremos do outro intervalo. Neste exemplo, a amostra original era pequena; se fosse maior, os intervalos seriam mais parecidos.
+   
+   Como o *bootstrapping* consiste em sortear elementos da amostra original, os resultados podem ser diferentes a cada execução, mas os resultados costumam ser próximos aos dos testes paramétricos --- como `prop.test`.
+   
+   :::

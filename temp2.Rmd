@@ -1,0 +1,21 @@
+
+   ::: {.rmdbox latex=1}
+   
+    ```{r}
+    n_amostras <- 1e4
+    n <- length(diferencas)
+    amostras <- replicate(
+      n_amostras, 
+      sample(diferencas, n, replace = TRUE),
+      simplify = FALSE
+    )
+    ```
+
+   Vamos examinar a lista gerada:
+   
+    ```{r}
+    str(amostras)
+    ```
+
+   
+   :::

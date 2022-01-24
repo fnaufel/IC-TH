@@ -5,7 +5,7 @@
    
    O vetor `setores` é uma amostra.
    
-   Como não sabemos o desvio padrão da população, vamos usar o *teste t* para estimar a média de pessoas por setor.
+   Como não sabemos o desvio padrão da população, vamos usar o [teste $t$]{.hl} para estimar a média de pessoas por setor.
    
    :::
    
