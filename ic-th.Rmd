@@ -326,7 +326,15 @@ Dentre $298$ pessoas [com menos de $25$ anos]{.hl}, $13$ disseram que sonham em 
 
 1. Construa um intervalo de confiança de $99\%$ para a diferença entre as duas proporções.
 
+   ```{r child='sonho1.Rmd', eval=gabarito}
+    
+   ```
+
 1. Teste a afirmação de que a proporção de pessoas [com mais de $55$ anos]{.hl} que sonham em preto e branco é [maior do que]{.hl} a proporção de pessoas [com menos de $25$ anos]{.hl} que sonham em preto e branco. Use $\alpha = 0{,}01$.
+
+   ```{r child='sonho2.Rmd', eval=gabarito}
+    
+   ```
 
 
 # Professores $\times$ professoras^[Baseado em Andrew Gelman e Jennifer Hill (2009), "Replication Data for Data Analysis Using Regression Multilevel Hierarchical Models", http://hdl.handle.net/1902.1/10285

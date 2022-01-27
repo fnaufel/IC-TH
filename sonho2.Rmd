@@ -1,0 +1,107 @@
+
+   ::: {.rmdimportant latex=1}
+   
+   Como o intervalo de confiança para a diferença entre as proporções, calculado no item anterior, não inclui o zero, e como $\hat p_1 > \hat p _2$, já sabemos, antes de qualquer cálculo, que [a hipótese de nulidade vai ser rejeitada]{.hl}. 
+   
+   Neste nível de confiança, a amostra é evidência de que a proporção de pessoas com mais de $55$ anos que sonham em preto e branco é [maior do que]{.hl} a proporção de pessoas com menos de $25$ anos que sonham em preto e branco.
+   
+   :::
+
+   ::: {.rmdbox latex=1}
+
+   ### Condições {-}
+
+   Já foram verificadas no item anterior.
+
+   :::
+
+   ::: {.rmdbox latex=1}
+   
+   ### Hipóteses {-}
+   
+   $$
+   H_0 : p_1 - p_2 \leq 0
+   $$
+   
+   $$
+   H_A : p_1 - p_2 > 0
+   $$
+   
+   :::
+
+   ::: {.rmdbox latex=1}
+   
+   ### Passo a passo {-}
+
+    ```{r}
+    n1 <- 306
+    sucessos1 <- 68
+    pchapeu1 <- sucessos1 / n1
+    cat('\npchapeu1 =', pchapeu1)
+    
+    n2 <- 298
+    sucessos2 <- 13
+    pchapeu2 <- sucessos2 / n2
+    cat('\npchapeu2 =', pchapeu2)
+    
+    dchapeu <- pchapeu1 - pchapeu2
+    cat('\ndchapeu =', dchapeu)
+
+    # Valor de d (diferença) na hipótese nula
+    dzero <- 0
+    
+    # Supondo a hipótese nula
+    pbarra <- (sucessos1 + sucessos2) / (n1 + n2)
+    erro_padrao <- sqrt(
+      (pbarra * (1 - pbarra) / n1) +
+      (pbarra * (1 - pbarra) / n2)
+    )
+    cat('\nEP =', erro_padrao)
+    
+    # Valor p
+    valor_p <- pnorm(
+      dchapeu, 
+      mean = dzero, 
+      sd = erro_padrao,
+      lower.tail = FALSE
+    )
+    cat('\nValor p =', valor_p)
+    ```
+
+   Graficamente, o valor $p$ corresponde à área em vermelho (praticamente invisível!) abaixo da seguinte distribuição normal, com média $`r dzero`$ e desvio padrão $\approx `r erro_padrao`$:
+
+    ```{r echo=FALSE}
+    plot_shaded(
+      minimo = -.2,
+      maximo = .2,
+      args = c(mean = dzero, sd = erro_padrao),
+      extremos = c(dchapeu),
+      tipo = 'dir'
+    )      
+    ```
+
+   Como o valor $p$ $(\approx `r valor_p %>% fm(digits = 14)`)$ é muito menor do que $\alpha$ ($0{,}01$), [temos evidência para rejeitar $H_0$]{.hl}.
+   
+   :::
+
+   ::: {.rmdbox latex=1}
+   
+   ### Usando a função `prop.test()` {-}
+
+    ```{r}
+    prop.test(
+      matrix(
+        c(
+          sucessos1, sucessos2,
+          n1 - sucessos1, n2 - sucessos2
+        ),
+        ncol = 2
+      ),
+      alternative = 'greater',
+      conf.level = .99,
+      correct = FALSE
+    )
+    ```
+
+   :::
+

@@ -1,0 +1,101 @@
+   ::: {.rmdbox latex=1}
+   
+   ### Condições {-}
+   
+   * A distribuição da população é normal e $n \geq 10$?
+   
+     Não sabemos se a distribuição da população é normal.
+     
+   * Caso a distribuição da população não seja conhecida, $n \geq 30$?
+   
+     Sim.
+     
+   * As amostras são aleatórias, representativas das populações?
+   
+     Supomos que sim.
+     
+   * Os valores da amostra são independentes entre si?
+   
+     Supomos que sim.
+     
+   * O tamanho da amostra é menos do que $10\%$ da população?
+   
+     Sim.
+     
+   * Há pelo menos 10 fracassos e pelo menos 10 sucessos em cada amostra?
+   
+     Sim.
+     
+   * Os grupos são independentes?
+   
+     Supomos que sim (não são parentes nem de outra forma relacionados).
+     
+   :::
+  
+   ::: {.rmdbox latex=1}
+   
+   ### Passo a passo {-}
+  
+    ```{r}
+    n1 <- 306
+    sucessos1 <- 68
+    pchapeu1 <- sucessos1 / n1
+    cat('\npchapeu1 =', pchapeu1)
+    
+    n2 <- 298
+    sucessos2 <- 13
+    pchapeu2 <- sucessos2 / n2
+    cat('\npchapeu2 =', pchapeu2)
+    
+    dchapeu <- pchapeu1 - pchapeu2
+    cat('\ndchapeu =', dchapeu)
+    
+    nivel_confianca <- .99
+    
+    erro_padrao <- sqrt(
+      (pchapeu1 * (1 - pchapeu1) / n1) +
+      (pchapeu2 * (1 - pchapeu2) / n2)
+    )
+    cat('\nEP =', erro_padrao)
+    
+    valor_critico <- -qnorm((1 - nivel_confianca)/2)
+    cat('\nValor crítico =', valor_critico)
+    
+    margem_erro <- erro_padrao * valor_critico
+    cat('\nME =', margem_erro)
+    
+    intervalo <- dchapeu + c(-1, 1) * margem_erro
+    cat('\nIC = [', intervalo[1], ';', intervalo[2], ']')
+    ```
+  
+   Graficamente, segundo esta amostra, a distribuição amostral de $\hat d$ (a diferença estimada entre as proporções) é a normal abaixo, com média $`r dchapeu`$ e desvio padrão $`r erro_padrao`$. A área preenchida corresponde a $99\%$ de probabilidade:
+  
+    ```{r echo=FALSE, out.extra='id=distr-amostral'}
+    plot_shaded(
+      args = c(mean = dchapeu, sd = erro_padrao),
+      extremos = intervalo
+    )
+    ```
+  
+   :::
+  
+   ::: {.rmdbox latex=1}
+   
+   ### Usando a função `prop.test` {-}
+   
+    ```{r}
+    prop.test(
+      matrix(
+        c(
+          sucessos1, sucessos2,
+          n1 - sucessos1, n2 - sucessos2
+        ),
+        ncol = 2
+      ),
+      conf.level = .99,
+      correct = FALSE
+    )
+    ```
+  
+   :::
+  
