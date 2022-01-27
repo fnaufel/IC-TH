@@ -1,0 +1,112 @@
+
+   ::: {.rmdbox latex=1}
+   
+   ### Condições {-}
+   
+   * As amostras são aleatórias, representativas da população?
+   
+     Supomos que sim.
+     
+   * Os pares são independentes entre si?
+   
+     Supomos que sim. O comportamento de um casal não afeta o comportamento dos outros.
+     
+   * As amostras são menos do que $10\%$ da população?
+   
+     Sim.
+     
+   * A amostra vem de uma população aproximadamente normal?
+   
+     Podemos fazer um teste de normalidade [sobre as diferenças]{.hl}:
+   
+      ```{r}
+      (df$marido - df$mulher) %>% shapiro.test()
+      ```
+      
+     O valor $p$ acima de $0{,}05$ é evidência de que os dados seguem uma distribuição normal.
+     
+   :::
+ 
+   ::: {.rmdbox latex=1}
+ 
+   ### Passo a passo {-}
+   
+    ```{r}
+    n = nrow(df)
+    cat('\nn =', n)
+    
+    dbarra <- mean(df$marido - df$mulher)
+    cat('\nMédia amostral das diferenças =', dbarra)
+    
+    s <- sd(df$marido - df$mulher)
+    cat('\nDesvio padrão amostral das diferenças =', s)
+    
+    erro_padrao <- s / sqrt(n)
+    cat('\nEP =', erro_padrao)
+    
+    gl <- n - 1
+    cat('\nGraus de liberdade = ', gl)
+    
+    nivel_confianca <- .95
+    valor_critico <- -qt((1 - nivel_confianca)/2, df = gl)
+    cat('\nValor crítico =', valor_critico)
+    
+    margem_erro <- erro_padrao * valor_critico
+    cat('\nME =', margem_erro)
+    
+    intervalo <- dbarra + c(-1, 1) * margem_erro
+    cat('\nIC = [', intervalo[1], ';', intervalo[2], ']')
+    ```
+   
+   Graficamente, o intervalo de confiança corresponde à área em vermelho abaixo da seguinte distribuição $t$, com $`r gl`$ graus de liberdade:
+   
+    ```{r echo=FALSE}
+    plot_shaded(
+      minimo = -5,
+      maximo = 5,
+      distr = dt,
+      args = c(df = gl),
+      extremos = c(valor_critico, -valor_critico) %>% sort(),
+      tipo = 'ic'
+    )
+    ```
+   
+   Observe que esta distribuição $t$ corresponde à variável padronizada
+   
+   $$
+   \frac{x - \overline{(x_1 - x_2)}}{s / \sqrt{n}}
+   $$
+   
+   Trabalhamos com esta variável padronizada porque [a distribuição $t$ sempre tem média zero.]{.hl}
+   
+   Aqui, cada valor no eixo $x$ corresponde ao número de desvios padrão acima ou abaixo da média. 
+   
+   De fato, o limite inferior da área preenchida corresponde a 
+   
+    ```{r}
+    (intervalo[1] - dbarra) / erro_padrao
+    ```
+
+   e o limite superior da área preenchida corresponde a 
+   
+    ```{r}
+    (intervalo[2] - dbarra) / erro_padrao
+    ```
+   
+   :::
+   
+   ::: {.rmdbox latex=1}
+   
+   ### Usando a função `t.test()` {-}
+   
+    ```{r}
+    t.test(
+      x = df$marido,
+      y = df$mulher,
+      paired = TRUE
+    )
+    ```
+   
+   :::
+ 
+    

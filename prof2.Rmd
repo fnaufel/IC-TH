@@ -1,0 +1,113 @@
+
+   ::: {.rmdimportant latex=1}
+   
+   Como o intervalo de confiança para a diferença entre as médias, calculado no item anterior, inclui o zero, já sabemos, antes de qualquer cálculo, que [a hipótese de nulidade não vai ser rejeitada]{.hl}; isto é, [as amostras são evidência de que as médias são iguais]{.hl}. 
+   
+   :::
+
+   ::: {.rmdbox latex=1}
+
+   ### Condições {-}
+
+   Já foram verificadas no item anterior.
+
+   :::
+
+   ::: {.rmdbox latex=1}
+   
+   ### Hipóteses {-}
+   
+   $$
+   H_0 : \mu_1 - \mu_2 = 0
+   $$
+   
+   $$
+   H_A : \mu_1 - \mu_2 \neq 0
+   $$
+   
+   :::
+
+   ::: {.rmdbox latex=1}
+   
+   ### Passo a passo {-}
+
+    ```{r}
+    n_1 = length(mulheres)
+    cat('n_1 =', n_1)
+    
+    xbarra_1 <- mean(mulheres)
+    cat('\nMédia amostral 1 =', xbarra_1)
+    
+    s_1 <- sd(mulheres)
+    cat('\nDesvio padrão amostral 1 =', s_1)
+    
+    n_2 = length(homens)
+    cat('\nn_2 =', n_2)
+
+    xbarra_2 <- mean(homens)
+    cat('\nMédia amostral 2 =', xbarra_2)
+    
+    s_2 <- sd(homens)
+    cat('\nDesvio padrão amostral 2 =', s_1)
+    
+    erro_padrao <- sqrt(s_1^2 / n_1 + s_2^2 / n_2)
+    cat('\nEP =', erro_padrao)
+    
+    d <- xbarra_1 - xbarra_2
+    cat('\nDiferença =', d)
+    
+    # Vamos padronizar esta diferença
+    tx <- (d - 0) / erro_padrao
+    cat('\nDiferença padronizada =', tx)
+    
+    gl <- (s_1^2 / n_1 + s_2^2 / n_2)^2 / (
+      (s_1^2 / n_1)^2 / (n_1 - 1) +
+      (s_2^2 / n_2)^2 / (n_2 - 1)
+    )
+    cat('\nGraus de liberdade =', gl)
+    
+    valor_p <- 2 * pt(
+      tx, 
+      df = gl
+    )
+    cat('\nValor p =', valor_p)      
+    
+    ```
+
+   Como o valor $p$ $(\approx `r valor_p`)$ é maior do que $\alpha$ ($0{,}05$), [não temos evidência para rejeitar $H_0$]{.hl}.
+   
+   Graficamente, o valor $p$ corresponde à área em vermelho abaixo da seguinte distribuição $t$, com $`r gl`$ graus de liberdade, que corresponde à variável padronizada
+   
+   $$
+   \frac{x - (\bar x_1 - \bar x_2)}{\sqrt{s_1^2 / n_1 + s_2^2 / n_2}}
+   $$
+
+    ```{r echo=FALSE}
+    plot_shaded(
+      minimo = -5,
+      maximo = 5,
+      distr = dt,
+      args = c(df = gl),
+      extremos = c(tx, -tx),
+      tipo = 'bi',
+      digitos = 4
+    )
+    ```
+   
+   Como a hipótese alternativa é $H_A : \mu_1 - \mu_2 \neq 0$, o teste é bilateral.
+   
+   :::
+
+   ::: {.rmdbox latex=1}
+   
+   ### Usando a função `t.test()` {-}
+
+    ```{r}
+    t.test(
+      x = mulheres,
+      y = homens
+    )
+    ```
+
+   :::
+

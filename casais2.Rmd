@@ -1,0 +1,102 @@
+
+   ::: {.rmdimportant latex=1}
+   
+   Como o intervalo de confiança para a média das diferenças, calculado no item anterior, inclui o zero, já sabemos, antes de qualquer cálculo, que [a hipótese de nulidade não vai ser rejeitada]{.hl}; isto é, [a amostra não é evidência de que as mulheres falam mais]{.hl}. 
+   
+   :::
+
+   ::: {.rmdbox latex=1}
+
+   ### Condições {-}
+
+   Já foram verificadas no item anterior.
+
+   :::
+
+   ::: {.rmdbox latex=1}
+   
+   ### Hipóteses {-}
+   
+   Chamando de $\mu_d$ a média das diferenças $$\text{palavras}_\text{marido} - \text{palavras}_\text{mulher}$$ temos
+   
+   $$
+   H_0 : \mu_d \geq 0
+   $$
+   
+   $$
+   H_A : \mu_d < 0
+   $$
+   
+   :::
+
+   ::: {.rmdbox latex=1}
+   
+   ### Passo a passo {-}
+
+    ```{r}
+    n = nrow(df)
+    cat('\nn =', n)
+    
+    dbarra <- mean(df$marido - df$mulher)
+    cat('\nMédia amostral das diferenças =', dbarra)
+    
+    s <- sd(df$marido - df$mulher)
+    cat('\nDesvio padrão amostral das diferenças =', s)
+    
+    erro_padrao <- s / sqrt(n)
+    cat('\nEP =', erro_padrao)
+    
+    gl <- n - 1
+    cat('\nGraus de liberdade = ', gl)
+    
+    # Vamos padronizar esta diferença
+    tx <- (dbarra - 0) / erro_padrao
+    cat('\nDiferença padronizada =', tx)
+    
+    valor_p <- pt(
+      tx, 
+      df = gl
+    )
+    cat('\nValor p =', valor_p)      
+    
+    ```
+
+   Como o valor $p$ $(\approx `r valor_p`)$ é maior do que $\alpha$ ($0{,}05$), [não temos evidência para rejeitar $H_0$]{.hl}.
+   
+   Graficamente, o valor $p$ corresponde à área em vermelho abaixo da seguinte distribuição $t$, com $`r gl`$ graus de liberdade, que corresponde à variável padronizada
+   
+   $$
+   \frac{x - \overline{(x_1 - x_2)}}{s / \sqrt{n}}
+   $$
+
+    ```{r echo=FALSE}
+    plot_shaded(
+      minimo = -5,
+      maximo = 5,
+      distr = dt,
+      args = c(df = gl),
+      extremos = c(tx),
+      tipo = 'esq',
+      digitos = 4
+    )
+    ```
+   
+   Como a hipótese alternativa é $H_A : \mu_d < 0$, o teste é unilateral à esquerda.
+   
+   :::
+
+   ::: {.rmdbox latex=1}
+   
+   ### Usando a função `t.test()` {-}
+
+    ```{r}
+    t.test(
+      x = df$marido,
+      y = df$mulher,
+      alternative = 'less',
+      paired = TRUE
+    )    
+    ```
+
+   :::
+

@@ -362,7 +362,15 @@ Nada é sabido sobre as variâncias das duas populações.
 
 1. Construa um intervalo de confiança de $95\%$ para a diferença entre as médias.
 
+   ```{r child='prof1.Rmd', eval=gabarito}
+    
+   ```
+
 1. Teste a afirmação de que as médias são diferentes. Use $\alpha = 0{,}05$.
+
+   ```{r child='prof2.Rmd', eval=gabarito}
+    
+   ```
 
 
 # Mulheres $\times$ maridos^[Baseado em Mehl, M. R., Vazire, S., Nairán Ramírez-Esparza, Slatcher, R. B., & Pennebaker, J. W. (2007). "Are Women Really More Talkative Than Men?", *Science*, 317(5834), 82. http://dx.doi.org/10.1126/science.1139940]
@@ -407,8 +415,15 @@ kable_paper(
 
 1. Construa um intervalo de confiança de $95\%$ para a diferença média entre as quantidades de palavras faladas pelos dois cônjuges de um casal.
 
+   ```{r child='casais1.Rmd', eval=gabarito}
+    
+   ```
+
 1. Teste a afirmação de que, em casais em geral, a mulher fala mais do que o homem. Use $\alpha = 0{,}05$.
 
+   ```{r child='casais2.Rmd', eval=gabarito}
+    
+   ```
 
 # Temperatura corporal com *bootstrapping*
 

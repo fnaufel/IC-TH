@@ -1,0 +1,130 @@
+
+   ::: {.rmdbox latex=1}
+   
+   ### Condições {-}
+   
+   * As amostras são aleatórias, representativas da população?
+   
+     Supomos que sim.
+     
+   * Os valores das amostras são independentes entre si?
+   
+     Supomos que sim.
+     
+   * As amostras são menos do que $10\%$ da população?
+   
+     Sim.
+     
+   * As amostras vêm de populações aproximadamente normais?
+   
+     Podemos fazer testes de normalidade:
+   
+      ```{r}
+      mulheres %>% shapiro.test()
+      ```
+
+      ```{r}
+      homens %>% shapiro.test()
+      ```
+      
+     Os valores $p$ acima de $0{,}05$ são evidência de que os dados seguem uma distribuição normal.
+     
+   :::
+ 
+   ::: {.rmdbox latex=1}
+ 
+   ### Passo a passo {-}
+   
+    ```{r}
+    n_1 = length(mulheres)
+    cat('n_1 =', n_1)
+    
+    xbarra_1 <- mean(mulheres)
+    cat('\nMédia amostral 1 =', xbarra_1)
+    
+    s_1 <- sd(mulheres)
+    cat('\nDesvio padrão amostral 1 =', s_1)
+    
+    n_2 = length(homens)
+    cat('\nn_2 =', n_2)
+
+    xbarra_2 <- mean(homens)
+    cat('\nMédia amostral 2 =', xbarra_2)
+    
+    s_2 <- sd(homens)
+    cat('\nDesvio padrão amostral 2 =', s_1)
+    
+    d <- xbarra_1 - xbarra_2
+    cat('\nDiferença =', d)
+    
+    erro_padrao <- sqrt(s_1^2 / n_1 + s_2^2 / n_2)
+    cat('\nEP =', erro_padrao)
+    
+    gl <- (s_1^2 / n_1 + s_2^2 / n_2)^2 / (
+      (s_1^2 / n_1)^2 / (n_1 - 1) +
+      (s_2^2 / n_2)^2 / (n_2 - 1)
+    )
+    cat('\nGraus de liberdade = ', gl)
+    
+    nivel_confianca <- .95
+    valor_critico <- -qt((1 - nivel_confianca)/2, df = gl)
+    cat('\nValor crítico =', valor_critico)
+    
+    margem_erro <- erro_padrao * valor_critico
+    cat('\nME =', margem_erro)
+    
+    intervalo <- d + c(-1, 1) * margem_erro
+    cat('\nIC = [', intervalo[1], ';', intervalo[2], ']')
+    ```
+   
+   Graficamente, o intervalo de confiança corresponde à área em vermelho abaixo da seguinte distribuição $t$, com $`r gl`$ graus de liberdade:
+   
+    ```{r echo=FALSE}
+    plot_shaded(
+      minimo = -5,
+      maximo = 5,
+      distr = dt,
+      args = c(df = gl),
+      extremos = c(valor_critico, -valor_critico) %>% sort(),
+      tipo = 'ic'
+    )
+    ```
+   
+   Observe que esta distribuição $t$ corresponde à variável padronizada
+   
+   $$
+   \frac{x - (\bar x_1 - \bar x_2)}{\sqrt{s_1^2 / n_1 + s_2^2 / n_2}}
+   $$
+   
+   Trabalhamos com esta variável padronizada porque [a distribuição $t$ sempre tem média zero.]{.hl}
+   
+   Aqui, cada valor no eixo $x$ corresponde ao número de desvios padrão acima ou abaixo da média. 
+   
+   De fato, o limite inferior da área preenchida corresponde a 
+   
+    ```{r}
+    (intervalo[1] - (xbarra_1 - xbarra_2)) / erro_padrao
+    ```
+
+   e o limite superior da área preenchida corresponde a 
+   
+    ```{r}
+    (intervalo[2] - (xbarra_1 - xbarra_2)) / erro_padrao
+    ```
+   
+   :::
+   
+   ::: {.rmdbox latex=1}
+   
+   ### Usando a função `t.test()` {-}
+   
+    ```{r}
+    t.test(
+      x = mulheres,
+      y = homens
+    )
+    ```
+   
+   :::
+ 
+    
