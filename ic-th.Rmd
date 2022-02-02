@@ -62,6 +62,17 @@ gabarito <- TRUE
 ```
 
 
+```{r echo=FALSE, results='asis'}
+if (gabarito) {
+  cat(
+'::: {.rmdnote latex=1}
+**GABARITO**
+:::'
+  )
+}
+```
+
+
 # Instruções {-}
 
 * Veja na tabela abaixo o número da questão que foi sorteada para você. [Se seu número de matrícula não estiver na tabela, entre em contato comigo pelo Telegram.]{.hl}
